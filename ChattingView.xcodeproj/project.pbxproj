@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4BDCAC332D7C602300F866ED /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4BDCAC322D7C602300F866ED /* Alamofire */; };
+		4BDCAC362D7C603600F866ED /* GabTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 4BDCAC352D7C603600F866ED /* GabTextView */; };
+		4BDCAC382D7C604400F866ED /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDCAC2D2D7C5FF300F866ED /* Core.framework */; };
+		4BDCAC392D7C604400F866ED /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDCAC2D2D7C5FF300F866ED /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		4BDCABD12D7C5ABD00F866ED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,12 +28,34 @@
 			remoteGlobalIDString = 4BDCABBF2D7C5ABC00F866ED;
 			remoteInfo = ChattingView;
 		};
+		4BDCAC2C2D7C5FF300F866ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BDCAC282D7C5FF300F866ED /* Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4BDCAC1D2D7C5FF200F866ED;
+			remoteInfo = Core;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4BDCAC3A2D7C604400F866ED /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4BDCAC392D7C604400F866ED /* Core.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4BDCABC02D7C5ABC00F866ED /* ChattingView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChattingView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BDCABD02D7C5ABD00F866ED /* ChattingViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChattingViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BDCABDA2D7C5ABD00F866ED /* ChattingViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChattingViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BDCAC282D7C5FF300F866ED /* Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Core.xcodeproj; path = Core/Core.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +81,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BDCAC332D7C602300F866ED /* Alamofire in Frameworks */,
+				4BDCAC382D7C604400F866ED /* Core.framework in Frameworks */,
+				4BDCAC362D7C603600F866ED /* GabTextView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,9 +107,11 @@
 		4BDCABB72D7C5ABC00F866ED = {
 			isa = PBXGroup;
 			children = (
+				4BDCABFD2D7C5FC600F866ED /* Modules */,
 				4BDCABC22D7C5ABC00F866ED /* ChattingView */,
 				4BDCABD32D7C5ABD00F866ED /* ChattingViewTests */,
 				4BDCABDD2D7C5ABD00F866ED /* ChattingViewUITests */,
+				4BDCAC372D7C604400F866ED /* Frameworks */,
 				4BDCABC12D7C5ABC00F866ED /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +126,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4BDCABFD2D7C5FC600F866ED /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				4BDCAC282D7C5FF300F866ED /* Core.xcodeproj */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		4BDCAC292D7C5FF300F866ED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4BDCAC2D2D7C5FF300F866ED /* Core.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4BDCAC372D7C604400F866ED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -102,6 +159,7 @@
 				4BDCABBC2D7C5ABC00F866ED /* Sources */,
 				4BDCABBD2D7C5ABC00F866ED /* Frameworks */,
 				4BDCABBE2D7C5ABC00F866ED /* Resources */,
+				4BDCAC3A2D7C604400F866ED /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -112,6 +170,8 @@
 			);
 			name = ChattingView;
 			packageProductDependencies = (
+				4BDCAC322D7C602300F866ED /* Alamofire */,
+				4BDCAC352D7C603600F866ED /* GabTextView */,
 			);
 			productName = ChattingView;
 			productReference = 4BDCABC02D7C5ABC00F866ED /* ChattingView.app */;
@@ -195,9 +255,19 @@
 			);
 			mainGroup = 4BDCABB72D7C5ABC00F866ED;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4BDCAC312D7C602300F866ED /* XCRemoteSwiftPackageReference "Alamofire" */,
+				4BDCAC342D7C603600F866ED /* XCRemoteSwiftPackageReference "swiftui-textView" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4BDCABC12D7C5ABC00F866ED /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4BDCAC292D7C5FF300F866ED /* Products */;
+					ProjectRef = 4BDCAC282D7C5FF300F866ED /* Core.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				4BDCABBF2D7C5ABC00F866ED /* ChattingView */,
@@ -206,6 +276,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4BDCAC2D2D7C5FF300F866ED /* Core.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Core.framework;
+			remoteRef = 4BDCAC2C2D7C5FF300F866ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4BDCABBE2D7C5ABC00F866ED /* Resources */ = {
@@ -558,6 +638,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4BDCAC312D7C602300F866ED /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+		4BDCAC342D7C603600F866ED /* XCRemoteSwiftPackageReference "swiftui-textView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sanggab/swiftui-textView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4BDCAC322D7C602300F866ED /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BDCAC312D7C602300F866ED /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		4BDCAC352D7C603600F866ED /* GabTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BDCAC342D7C603600F866ED /* XCRemoteSwiftPackageReference "swiftui-textView" */;
+			productName = GabTextView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4BDCABB82D7C5ABC00F866ED /* Project object */;
 }

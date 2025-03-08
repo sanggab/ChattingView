@@ -1,0 +1,33 @@
+{
+  "originHash" : "b791a0039b4e6475df1b35298d70ee6c8baa27cbfd582d5bcd9c192395865d64",
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire",
+      "state" : {
+        "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
+        "version" : "5.10.2"
+      }
+    },
+    {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher",
+      "state" : {
+        "revision" : "b450a3b30e0767277a6eed7e02dbdebd7d173da0",
+        "version" : "8.3.0"
+      }
+    },
+    {
+      "identity" : "swiftui-textview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sanggab/swiftui-textView",
+      "state" : {
+        "revision" : "6142664886a4f6115e96ec2d644c6ddd1fb8f89f",
+        "version" : "2.2.0"
+      }
+    }
+  ],
+  "version" : 3
+}
