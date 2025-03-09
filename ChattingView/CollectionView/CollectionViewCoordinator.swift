@@ -26,8 +26,20 @@ extension CollectionViewCoordinator: UICollectionViewDataSource {
         let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "chatcell", for: indexPath)
         
         cell.contentConfiguration = UIHostingConfiguration {
-            TextCell(text: "채팅셀이닷!!!")
+            VStack(spacing: 0) {
+                TextCell(text: "채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!")
+                    .background(.blue)
+                
+                TextCell(text: "채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!채팅셀이닷!!!")
+                    .background(.blue)
+                
+                Rectangle()
+                    .fill(.red)
+                    .frame(height: 50)
+            }
         }
+        .minSize(width: 0, height: 0)
+        .margins(.all, 0)
         
         return cell
     }

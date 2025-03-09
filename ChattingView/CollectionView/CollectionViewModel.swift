@@ -6,3 +6,135 @@
 //
 
 import SwiftUI
+
+enum ChatType: CaseIterable, Equatable {
+    case text
+    case img
+}
+
+enum SendType: CaseIterable, Equatable {
+    case send
+    case receive
+}
+
+class ChatModel: Equatable, Identifiable {
+    static func == (lhs: ChatModel, rhs: ChatModel) -> Bool {
+        lhs.memNo == rhs.memNo &&
+        lhs.chatType == rhs.chatType &&
+        lhs.sendType == rhs.sendType &&
+        lhs.text == rhs.text &&
+        lhs.imgUrl == rhs.imgUrl
+    }
+    
+    typealias ID = String
+    
+    var id: ID = UUID().uuidString
+    
+    var memNo: Int
+    var chatType: ChatType
+    var sendType: SendType
+    var text: String
+    var imgUrl: String?
+    
+    init (memNo: Int, chatType: ChatType, sendType: SendType, text: String = "", imgUrl: String? = nil) {
+        self.memNo = memNo
+        self.chatType = chatType
+        self.sendType = sendType
+        self.text = text
+        self.imgUrl = imgUrl
+    }
+    
+    static func makeEmptyData() -> [ChatModel] {
+        return [
+            ChatModel(memNo: 2805, chatType: .text, sendType: .send, text: "안녕! 첫 번째 메시지야!", imgUrl: nil),
+            ChatModel(memNo: 3699, chatType: .text, sendType: .send, text: "안녕! 둘 번째 메시지야!", imgUrl: nil),
+            ChatModel(memNo: 2805, chatType: .text, sendType: .send, text: "안녕! 셋 번째 메시지야!", imgUrl: nil),
+            ChatModel(memNo: 2805, chatType: .img, sendType: .send, text: "안녕! 넷 번째 메시지야!", imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSohVs9nQ1O_NjtL0Bg0RiOFBKXU3Kgv327-A&s"),
+            ChatModel(memNo: 3699, chatType: .text, sendType: .send, text: "안녕! 다섯 번째 메시지야!", imgUrl: nil),
+            ChatModel(memNo: 3699, chatType: .img, sendType: .send, text: "안녕! 여셧 번째 메시지야!", imgUrl: "https://upload3.inven.co.kr/upload/2023/03/29/bbs/i15472657350.jpg"),
+            ChatModel(memNo: 2805, chatType: .text, sendType: .send, text: "안녕! 일곱 번째 메시지야!", imgUrl: nil),
+            ChatModel(memNo: 3699, chatType: .img, sendType: .send, text: "안녕! 여덟 번째 메시지야!", imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_z2Jno6IFeX6KIS0qHoa-bQYvS0dwcCiuMNe2O_Yrv3UPfk3ZTsjy-V-wlenduXaWI38&usqp=CAU"),
+            ChatModel(memNo: 3699, chatType: .img, sendType: .send, text: "안녕! 아홉 번째 메시지야!", imgUrl: "https://upload3.inven.co.kr/upload/2023/02/25/bbs/i14655432921.jpg"),
+            ChatModel(memNo: 3699, chatType: .text, sendType: .send, text: "안녕! 열 번째 메시지야!", imgUrl: nil),
+            ChatModel(memNo: 2805, chatType: .text, sendType: .send, text: "안녕! 열 하나 번째 메시지야!", imgUrl: nil)
+        ]
+    }
+}
+
+
+final class CollectionViewModel: ObservableObject, ViewModelFeatures {
+    
+    struct State: Equatable {
+        var list: [ChatModel] = []
+    }
+    
+    enum Action: Equatable {
+        case onAppear
+        case append
+        case appendImg
+    }
+    
+    @Published private var state: State = .init()
+    
+    func callAsFunction<V>(_ keyPath: KeyPath<State, V>) -> V where V: Equatable {
+        return state[keyPath: keyPath]
+    }
+    
+    func action(_ action: Action) {
+        print("\(#function) action: \(action)")
+        switch action {
+        case .onAppear:
+            self.update(\.list, newValue: ChatModel.makeEmptyData())
+            print("\(#function) list: \(self(\.list).count)")
+        case .append:
+            let textRandomeElement: String = [
+                "가나다라1",
+                "가나다라2",
+                "가나다라3",
+                "가나다라4",
+                "가나다라5",
+                "가나다라6",
+                "가나다라7",
+                "가나다라8",
+                "가나다라9",
+                "가나다라10",
+                "가나다라11",
+                "가나다라12",
+                "가나다라13",
+                "가나다라14",
+                "가나다라15",
+                "가나다라16",
+                "가나다라17"
+            ].randomElement() ?? "엣큥"
+            
+            var list: [ChatModel] = self(\.list)
+            list.append(.init(memNo: 2805, chatType: .text, sendType: .send, text: textRandomeElement, imgUrl: nil))
+            self.update(\.list, newValue: list)
+            
+        case .appendImg:
+            let imgUrl: String = [
+                "https://upload3.inven.co.kr/upload/2021/12/21/bbs/i15560686762.jpg?MW=800",
+                "https://upload3.inven.co.kr/upload/2023/11/21/bbs/i17226991301.png",
+                "https://upload3.inven.co.kr/upload/2023/04/03/bbs/i16565482795.jpg",
+//                "https://upload3.inven.co.kr/upload/2021/12/21/bbs/i15560686762.jpg?MW=800",
+//                "https://upload3.inven.co.kr/upload/2021/12/21/bbs/i15560686762.jpg?MW=800",
+//                "https://upload3.inven.co.kr/upload/2021/12/21/bbs/i15560686762.jpg?MW=800",
+//                "https://upload3.inven.co.kr/upload/2021/12/21/bbs/i15560686762.jpg?MW=800",
+//                "https://upload3.inven.co.kr/upload/2021/12/21/bbs/i15560686762.jpg?MW=800",
+//                "https://upload3.inven.co.kr/upload/2021/12/21/bbs/i15560686762.jpg?MW=800",
+//                "https://upload3.inven.co.kr/upload/2021/12/21/bbs/i15560686762.jpg?MW=800"
+            ].randomElement() ?? "안댕"
+            
+            
+            var list: [ChatModel] = self(\.list)
+            list.append(.init(memNo: 2805, chatType: .img, sendType: .send, text: "", imgUrl: imgUrl))
+            self.update(\.list, newValue: list)
+        }
+    }
+}
+
+extension CollectionViewModel {
+    private func update<V>(_ keyPath: WritableKeyPath<State, V>, newValue: V) where V: Equatable {
+        self.state[keyPath: keyPath] = newValue
+    }
+}

@@ -12,7 +12,8 @@ struct ChattingViewApp: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            SUCollectionView()
+//            SUCollectionView()
+            CUMainView()
         }
     }
 }
