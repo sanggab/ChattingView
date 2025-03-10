@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct CUMainView: View {
-    @StateObject var viewModel: CollectionViewModel = .init()
+    @StateObject var viewModel: CUViewModel = .init()
     
     var body: some View {
         VStack(spacing: 0) {
@@ -45,17 +45,31 @@ struct CUMainView: View {
                 }
             
             CURepresentableView {
-                ForEach(viewModel(\.list), id: \.id) { data in
-                    
-                    switch data.chatType {
-                    case .text:
-                        Text(data.text)
-                            .foregroundStyle(.gray)
-                            .font(.headline)
-                    case .img:
-                        KFImage(URL(string: data.imgUrl ?? ""))
-                            .resizable()
-                            .frame(width: 300, height: 300)
+                Group {
+                    ForEach(viewModel(\.list), id: \.id) { data in
+                        
+                        switch data.chatType {
+                        case .text:
+                            Text(data.text)
+                                .foregroundStyle(.red)
+                                .font(.headline)
+                                .onAppear {
+                                    print("상갑 logEvent \(#function) Text")
+                                }
+                                .onTapGesture {
+                                    print("상갑 logEvent \(#function) TextText")
+                                }
+                        case .img:
+                            KFImage(URL(string: data.imgUrl ?? ""))
+                                .resizable()
+                                .frame(width: 300, height: 300)
+                                .onAppear {
+                                    print("상갑 logEvent \(#function) KFImage")
+                                }
+                                .onTapGesture {
+                                    print("상갑 logEvent \(#function) imgimg")
+                                }
+                        }
                     }
                 }
             }

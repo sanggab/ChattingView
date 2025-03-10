@@ -1,11 +1,15 @@
 //
-//  CollectionViewModel.swift
+//  CUViewModel.swift
 //  ChattingView
 //
 //  Created by 심상갑 on 3/9/25.
 //
 
 import SwiftUI
+
+enum ChatSection: Int, Equatable {
+    case main = 0
+}
 
 enum ChatType: CaseIterable, Equatable {
     case text
@@ -17,13 +21,22 @@ enum SendType: CaseIterable, Equatable {
     case receive
 }
 
-class ChatModel: Equatable, Identifiable {
+class ChatModel: Hashable, Identifiable {
     static func == (lhs: ChatModel, rhs: ChatModel) -> Bool {
         lhs.memNo == rhs.memNo &&
         lhs.chatType == rhs.chatType &&
         lhs.sendType == rhs.sendType &&
         lhs.text == rhs.text &&
         lhs.imgUrl == rhs.imgUrl
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+        hasher.combine(self.memNo)
+        hasher.combine(self.chatType)
+        hasher.combine(self.sendType)
+        hasher.combine(self.text)
+        hasher.combine(self.imgUrl)
     }
     
     typealias ID = String
@@ -62,7 +75,7 @@ class ChatModel: Equatable, Identifiable {
 }
 
 
-final class CollectionViewModel: ObservableObject, ViewModelFeatures {
+final class CUViewModel: ObservableObject, ViewModelFeatures {
     
     struct State: Equatable {
         var list: [ChatModel] = []
@@ -133,7 +146,7 @@ final class CollectionViewModel: ObservableObject, ViewModelFeatures {
     }
 }
 
-extension CollectionViewModel {
+extension CUViewModel {
     private func update<V>(_ keyPath: WritableKeyPath<State, V>, newValue: V) where V: Equatable {
         self.state[keyPath: keyPath] = newValue
     }

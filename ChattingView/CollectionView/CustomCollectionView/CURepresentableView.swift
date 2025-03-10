@@ -22,14 +22,20 @@ struct CURepresentableView<ContentView: View>: UIViewRepresentable {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemMint
         collectionView.delegate = context.coordinator
-        collectionView.dataSource = context.coordinator
         
+//        collectionView.dataSource = context.coordinator
+//        self.testCollectionView = collectionView
+        context.coordinator.setDataSource(view: collectionView)
+        context.coordinator.setData(chatModel: [.init(memNo: 135, chatType: .img, sendType: .receive)])
         return collectionView
     }
         
     func updateUIView(_ uiView: UICollectionView, context: Context) {
         print("\(#function)")
-        uiView.reloadData()
+//        self.testCollectionView = uiView
+//        context.coordinator.setDataSource(view: uiView)
+//        context.coordinator.setData(chatModel: [.init(memNo: 135, chatType: .img, sendType: .receive)])
+        context.coordinator.reloadData()
         uiView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: true)
     }
     
