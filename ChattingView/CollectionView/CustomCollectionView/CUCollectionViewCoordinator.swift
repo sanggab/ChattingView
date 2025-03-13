@@ -79,7 +79,7 @@ final class CUCollectionViewCoordinator<ContentView: View>: NSObject, UICollecti
     }
     
     func setData(chatModel: [ChatModel]) {
-        var snapShot = NSDiffableDataSourceSnapshot<ChatSection, ChatModel>()
+        var snapShot: NSDiffableDataSourceSnapshot<ChatSection, ChatModel> = .init()
         
         snapShot.appendSections([.main])
         
@@ -89,13 +89,13 @@ final class CUCollectionViewCoordinator<ContentView: View>: NSObject, UICollecti
     }
     
     func reloadData() {
-        var snapShot = self.dataSource.snapshot()
+        var snapShot: NSDiffableDataSourceSnapshot<ChatSection, ChatModel> = self.dataSource.snapshot()
         snapShot.reloadItems(snapShot.itemIdentifiers)
         self.dataSource.applySnapshotUsingReloadData(snapShot)
     }
     
     func reconfigureItems() {
-        var snapShot = self.dataSource.snapshot()
+        var snapShot: NSDiffableDataSourceSnapshot<ChatSection, ChatModel> = self.dataSource.snapshot()
         snapShot.reconfigureItems(snapShot.itemIdentifiers)
         self.dataSource.apply(snapShot, animatingDifferences: false)
     }

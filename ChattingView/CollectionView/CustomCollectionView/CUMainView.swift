@@ -45,35 +45,73 @@ struct CUMainView: View {
                 }
             
             CURepresentableView {
-                Group {
-                    ForEach(viewModel(\.list), id: \.id) { data in
-                        
-                        switch data.chatType {
-                        case .text:
-                            Text(data.text)
-                                .foregroundStyle(.red)
-                                .font(.headline)
-                                .onAppear {
-                                    print("상갑 logEvent \(#function) Text")
-                                }
-                                .onTapGesture {
-                                    print("상갑 logEvent \(#function) TextText")
-                                }
-                        case .img:
-                            KFImage(URL(string: data.imgUrl ?? ""))
-                                .resizable()
-                                .frame(width: 300, height: 300)
-                                .onAppear {
-                                    print("상갑 logEvent \(#function) KFImage")
-                                }
-                                .onTapGesture {
-                                    print("상갑 logEvent \(#function) imgimg")
-                                }
-                        }
+                ForEach(Array(viewModel(\.list).enumerated()), id: \.element.id) { index, data in
+                    
+                    switch data.chatType {
+                    case .text:
+                        CUTextCell(text: data.text)
+                            .onAppear {
+                                print("상갑 logEvent \(#function) Text")
+                            }
+                            .onTapGesture {
+                                print("상갑 logEvent \(#function) TextText")
+                            }
+                            .onLongPressGesture {
+                                viewModel.action(.delete(data))
+                            }
+                    case .img:
+                        CUImgCell(url: data.imgUrl)
+                            .onAppear {
+                                print("상갑 logEvent \(#function) KFImage")
+                            }
+                            .onTapGesture {
+                                print("상갑 logEvent \(#function) imgimg")
+                            }
+                            .onLongPressGesture {
+                                viewModel.action(.delete(data))
+                            }
+                    case .delete:
+                        CUDeletedCell()
                     }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .environmentObject(viewModel)
+        }
+    }
+}
+
+extension CUMainView {
+    @ViewBuilder
+    var container: some View {
+        ForEach(viewModel(\.list), id: \.id) { data in
+            
+            switch data.chatType {
+            case .text:
+                CUTextCell(text: data.text)
+                    .onAppear {
+                        print("상갑 logEvent \(#function) Text")
+                    }
+                    .onTapGesture {
+                        print("상갑 logEvent \(#function) TextText")
+                    }
+                    .onLongPressGesture {
+                        viewModel.action(.delete(data))
+                    }
+            case .img:
+                CUImgCell(url: data.imgUrl)
+                    .onAppear {
+                        print("상갑 logEvent \(#function) KFImage")
+                    }
+                    .onTapGesture {
+                        print("상갑 logEvent \(#function) imgimg")
+                    }
+                    .onLongPressGesture {
+                        viewModel.action(.delete(data))
+                    }
+            case .delete:
+                CUDeletedCell()
+            }
         }
     }
 }

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CURepresentableView<ContentView: View>: UIViewRepresentable {
     
+    @EnvironmentObject private var viewModel: CUViewModel
+    
     @ViewBuilder var viewBuilderClosure: () -> ContentView
     
     init(@ViewBuilder contentView: @escaping () -> ContentView) {
@@ -23,20 +25,26 @@ struct CURepresentableView<ContentView: View>: UIViewRepresentable {
         collectionView.backgroundColor = .systemMint
         collectionView.delegate = context.coordinator
         
-//        collectionView.dataSource = context.coordinator
-//        self.testCollectionView = collectionView
         context.coordinator.setDataSource(view: collectionView)
         context.coordinator.setData(chatModel: [.init(memNo: 135, chatType: .img, sendType: .receive)])
         return collectionView
     }
         
     func updateUIView(_ uiView: UICollectionView, context: Context) {
-        print("\(#function)")
-//        self.testCollectionView = uiView
-//        context.coordinator.setDataSource(view: uiView)
-//        context.coordinator.setData(chatModel: [.init(memNo: 135, chatType: .img, sendType: .receive)])
-        context.coordinator.reloadData()
-        uiView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: true)
+        print("상갑 logEvent \(#function)")
+        print("상갑 logEvent \(#function) chatState : \(viewModel(\.chatState))")
+        
+        switch viewModel(\.chatState) {
+        case .none:
+            print("none")
+        case .reload:
+            context.coordinator.reloadData()
+        case .reconfigure:
+            context.coordinator.reconfigureItems()
+        case .scrollToBottom:
+            context.coordinator.reconfigureItems()
+            uiView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: true)
+        }
     }
     
     func makeCoordinator() -> CUCollectionViewCoordinator<ContentView> {

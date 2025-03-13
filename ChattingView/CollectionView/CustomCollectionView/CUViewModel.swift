@@ -14,11 +14,19 @@ enum ChatSection: Int, Equatable {
 enum ChatType: CaseIterable, Equatable {
     case text
     case img
+    case delete
 }
 
 enum SendType: CaseIterable, Equatable {
     case send
     case receive
+}
+
+enum UpdateType: CaseIterable, Equatable {
+    case none
+    case reload
+    case reconfigure
+    case scrollToBottom
 }
 
 class ChatModel: Hashable, Identifiable {
@@ -79,12 +87,15 @@ final class CUViewModel: ObservableObject, ViewModelFeatures {
     
     struct State: Equatable {
         var list: [ChatModel] = []
+        var chatState: UpdateType = .none
     }
     
     enum Action: Equatable {
         case onAppear
         case append
         case appendImg
+        case delete(ChatModel)
+        case changeUpdateType(UpdateType)
     }
     
     @Published private var state: State = .init()
@@ -98,7 +109,7 @@ final class CUViewModel: ObservableObject, ViewModelFeatures {
         switch action {
         case .onAppear:
             self.update(\.list, newValue: ChatModel.makeEmptyData())
-            print("\(#function) list: \(self(\.list).count)")
+            self.action(.changeUpdateType(.scrollToBottom))
         case .append:
             let textRandomeElement: String = [
                 "가나다라1",
@@ -123,6 +134,7 @@ final class CUViewModel: ObservableObject, ViewModelFeatures {
             var list: [ChatModel] = self(\.list)
             list.append(.init(memNo: 2805, chatType: .text, sendType: .send, text: textRandomeElement, imgUrl: nil))
             self.update(\.list, newValue: list)
+            self.action(.changeUpdateType(.scrollToBottom))
             
         case .appendImg:
             let imgUrl: String = [
@@ -142,6 +154,25 @@ final class CUViewModel: ObservableObject, ViewModelFeatures {
             var list: [ChatModel] = self(\.list)
             list.append(.init(memNo: 2805, chatType: .img, sendType: .send, text: "", imgUrl: imgUrl))
             self.update(\.list, newValue: list)
+            self.action(.changeUpdateType(.scrollToBottom))
+            
+        case .delete(let model):
+            let list: [ChatModel] = self(\.list)
+            guard let index: Array<ChatModel>.Index = list.firstIndex(where: { $0 == model }) else { return }
+            print("상갑 logEvent \(#function) index: \(index)")
+            list[index].chatType = .delete
+            
+            list.enumerated().forEach { index, data in
+                print("상갑 logEvent \(#function) index: \(index)")
+                print("상갑 logEvent \(#function) chatType: \(data.chatType)")
+                print("상갑 logEvent \(#function) id: \(data.id)")
+            }
+            self.update(\.list, newValue: list)
+            self.action(.changeUpdateType(.reconfigure))
+            
+        case .changeUpdateType(let type):
+            print("상갑 logEvent \(#function) type: \(type)")
+            self.update(\.chatState, newValue: type)
         }
     }
 }
