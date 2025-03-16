@@ -35,7 +35,8 @@ class ChatModel: Hashable, Identifiable {
         lhs.chatType == rhs.chatType &&
         lhs.sendType == rhs.sendType &&
         lhs.text == rhs.text &&
-        lhs.imgUrl == rhs.imgUrl
+        lhs.imgUrl == rhs.imgUrl &&
+        lhs.msgNo == rhs.msgNo
     }
     
     func hash(into hasher: inout Hasher) {
@@ -45,6 +46,7 @@ class ChatModel: Hashable, Identifiable {
         hasher.combine(self.sendType)
         hasher.combine(self.text)
         hasher.combine(self.imgUrl)
+        hasher.combine(self.msgNo)
     }
     
     typealias ID = String
@@ -56,28 +58,30 @@ class ChatModel: Hashable, Identifiable {
     var sendType: SendType
     var text: String
     var imgUrl: String?
+    var msgNo: Int
     
-    init (memNo: Int, chatType: ChatType, sendType: SendType, text: String = "", imgUrl: String? = nil) {
+    init(memNo: Int, chatType: ChatType, sendType: SendType, text: String = "", imgUrl: String? = nil, msgNo: Int) {
         self.memNo = memNo
         self.chatType = chatType
         self.sendType = sendType
         self.text = text
         self.imgUrl = imgUrl
+        self.msgNo = msgNo
     }
     
     static func makeEmptyData() -> [ChatModel] {
         return [
-            ChatModel(memNo: 2805, chatType: .text, sendType: .send, text: "안녕! 첫 번째 메시지야!", imgUrl: nil),
-            ChatModel(memNo: 3699, chatType: .text, sendType: .send, text: "안녕! 둘 번째 메시지야!", imgUrl: nil),
-            ChatModel(memNo: 2805, chatType: .text, sendType: .send, text: "안녕! 셋 번째 메시지야!", imgUrl: nil),
-            ChatModel(memNo: 2805, chatType: .img, sendType: .send, text: "안녕! 넷 번째 메시지야!", imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSohVs9nQ1O_NjtL0Bg0RiOFBKXU3Kgv327-A&s"),
-            ChatModel(memNo: 3699, chatType: .text, sendType: .send, text: "안녕! 다섯 번째 메시지야!", imgUrl: nil),
-            ChatModel(memNo: 3699, chatType: .img, sendType: .send, text: "안녕! 여셧 번째 메시지야!", imgUrl: "https://upload3.inven.co.kr/upload/2023/03/29/bbs/i15472657350.jpg"),
-            ChatModel(memNo: 2805, chatType: .text, sendType: .send, text: "안녕! 일곱 번째 메시지야!", imgUrl: nil),
-            ChatModel(memNo: 3699, chatType: .img, sendType: .send, text: "안녕! 여덟 번째 메시지야!", imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_z2Jno6IFeX6KIS0qHoa-bQYvS0dwcCiuMNe2O_Yrv3UPfk3ZTsjy-V-wlenduXaWI38&usqp=CAU"),
-            ChatModel(memNo: 3699, chatType: .img, sendType: .send, text: "안녕! 아홉 번째 메시지야!", imgUrl: "https://upload3.inven.co.kr/upload/2023/02/25/bbs/i14655432921.jpg"),
-            ChatModel(memNo: 3699, chatType: .text, sendType: .send, text: "안녕! 열 번째 메시지야!", imgUrl: nil),
-            ChatModel(memNo: 2805, chatType: .text, sendType: .send, text: "안녕! 열 하나 번째 메시지야!", imgUrl: nil)
+            ChatModel(memNo: 2805, chatType: .text, sendType: .send, text: "안녕! 첫 번째 메시지야!", imgUrl: nil, msgNo: 99999999),
+            ChatModel(memNo: 3699, chatType: .text, sendType: .send, text: "안녕! 둘 번째 메시지야!", imgUrl: nil, msgNo: 99999999),
+            ChatModel(memNo: 2805, chatType: .text, sendType: .send, text: "안녕! 셋 번째 메시지야!", imgUrl: nil, msgNo: 99999999),
+            ChatModel(memNo: 2805, chatType: .img, sendType: .send, text: "안녕! 넷 번째 메시지야!", imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSohVs9nQ1O_NjtL0Bg0RiOFBKXU3Kgv327-A&s", msgNo: 99999999),
+            ChatModel(memNo: 3699, chatType: .text, sendType: .send, text: "안녕! 다섯 번째 메시지야!", imgUrl: nil, msgNo: 99999999),
+            ChatModel(memNo: 3699, chatType: .img, sendType: .send, text: "안녕! 여셧 번째 메시지야!", imgUrl: "https://upload3.inven.co.kr/upload/2023/03/29/bbs/i15472657350.jpg", msgNo: 99999999),
+            ChatModel(memNo: 2805, chatType: .text, sendType: .send, text: "안녕! 일곱 번째 메시지야!", imgUrl: nil, msgNo: 99999999),
+            ChatModel(memNo: 3699, chatType: .img, sendType: .send, text: "안녕! 여덟 번째 메시지야!", imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_z2Jno6IFeX6KIS0qHoa-bQYvS0dwcCiuMNe2O_Yrv3UPfk3ZTsjy-V-wlenduXaWI38&usqp=CAU", msgNo: 99999999),
+            ChatModel(memNo: 3699, chatType: .img, sendType: .send, text: "안녕! 아홉 번째 메시지야!", imgUrl: "https://upload3.inven.co.kr/upload/2023/02/25/bbs/i14655432921.jpg", msgNo: 99999999),
+            ChatModel(memNo: 3699, chatType: .text, sendType: .send, text: "안녕! 열 번째 메시지야!", imgUrl: nil, msgNo: 99999999),
+            ChatModel(memNo: 2805, chatType: .text, sendType: .send, text: "안녕! 열 하나 번째 메시지야!", imgUrl: nil, msgNo: 99999999)
         ]
     }
 }
@@ -88,6 +92,7 @@ final class CUViewModel: ObservableObject, ViewModelFeatures {
     struct State: Equatable {
         var list: [ChatModel] = []
         var chatState: UpdateType = .none
+        var msgNo: Int = 0
     }
     
     enum Action: Equatable {
@@ -132,8 +137,10 @@ final class CUViewModel: ObservableObject, ViewModelFeatures {
             ].randomElement() ?? "엣큥"
             
             var list: [ChatModel] = self(\.list)
-            list.append(.init(memNo: 2805, chatType: .text, sendType: .send, text: textRandomeElement, imgUrl: nil))
+            var msgNo: Int = self(\.msgNo)
+            list.append(.init(memNo: 2805, chatType: .text, sendType: .send, text: textRandomeElement, imgUrl: nil, msgNo: msgNo))
             self.update(\.list, newValue: list)
+            self.update(\.msgNo, newValue: msgNo + 1)
             self.action(.changeUpdateType(.scrollToBottom))
             
         case .appendImg:
@@ -150,23 +157,24 @@ final class CUViewModel: ObservableObject, ViewModelFeatures {
 //                "https://upload3.inven.co.kr/upload/2021/12/21/bbs/i15560686762.jpg?MW=800"
             ].randomElement() ?? "안댕"
             
-            
+            var msgNo: Int = self(\.msgNo)
             var list: [ChatModel] = self(\.list)
-            list.append(.init(memNo: 2805, chatType: .img, sendType: .send, text: "", imgUrl: imgUrl))
+            list.append(.init(memNo: 2805, chatType: .img, sendType: .send, text: "", imgUrl: imgUrl, msgNo: msgNo))
             self.update(\.list, newValue: list)
+            self.update(\.msgNo, newValue: msgNo + 1)
             self.action(.changeUpdateType(.scrollToBottom))
             
         case .delete(let model):
             let list: [ChatModel] = self(\.list)
             guard let index: Array<ChatModel>.Index = list.firstIndex(where: { $0 == model }) else { return }
-            print("상갑 logEvent \(#function) index: \(index)")
+            print("상갑 logEvent \(#function) delete index: \(index)")
             list[index].chatType = .delete
             
-            list.enumerated().forEach { index, data in
-                print("상갑 logEvent \(#function) index: \(index)")
-                print("상갑 logEvent \(#function) chatType: \(data.chatType)")
-                print("상갑 logEvent \(#function) id: \(data.id)")
-            }
+//            list.enumerated().forEach { index, data in
+//                print("상갑 logEvent \(#function) index: \(index)")
+//                print("상갑 logEvent \(#function) chatType: \(data.chatType)")
+//                print("상갑 logEvent \(#function) id: \(data.id)")
+//            }
             self.update(\.list, newValue: list)
             self.action(.changeUpdateType(.reconfigure))
             

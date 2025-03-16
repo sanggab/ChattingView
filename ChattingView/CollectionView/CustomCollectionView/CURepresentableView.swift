@@ -26,7 +26,7 @@ struct CURepresentableView<ContentView: View>: UIViewRepresentable {
         collectionView.delegate = context.coordinator
         
         context.coordinator.setDataSource(view: collectionView)
-        context.coordinator.setData(chatModel: [.init(memNo: 135, chatType: .img, sendType: .receive)])
+        context.coordinator.setData(chatModel: [.init(memNo: 135, chatType: .img, sendType: .receive, msgNo: -99)])
         return collectionView
     }
         

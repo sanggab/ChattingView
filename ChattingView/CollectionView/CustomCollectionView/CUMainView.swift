@@ -57,6 +57,7 @@ struct CUMainView: View {
                                 print("상갑 logEvent \(#function) TextText")
                             }
                             .onLongPressGesture {
+                                print("\(#function) index: \(index)")
                                 viewModel.action(.delete(data))
                             }
                     case .img:
@@ -68,6 +69,7 @@ struct CUMainView: View {
                                 print("상갑 logEvent \(#function) imgimg")
                             }
                             .onLongPressGesture {
+                                print("\(#function) index: \(index)")
                                 viewModel.action(.delete(data))
                             }
                     case .delete:
