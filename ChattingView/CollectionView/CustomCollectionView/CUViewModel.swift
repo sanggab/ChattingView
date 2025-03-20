@@ -27,6 +27,7 @@ enum UpdateType: CaseIterable, Equatable {
     case reload
     case reconfigure
     case scrollToBottom
+    case isFoucsed
 }
 
 class ChatModel: Hashable, Identifiable {
@@ -137,7 +138,7 @@ final class CUViewModel: ObservableObject, ViewModelFeatures {
             ].randomElement() ?? "엣큥"
             
             var list: [ChatModel] = self(\.list)
-            var msgNo: Int = self(\.msgNo)
+            let msgNo: Int = self(\.msgNo)
             list.append(.init(memNo: 2805, chatType: .text, sendType: .send, text: textRandomeElement, imgUrl: nil, msgNo: msgNo))
             self.update(\.list, newValue: list)
             self.update(\.msgNo, newValue: msgNo + 1)
@@ -157,7 +158,7 @@ final class CUViewModel: ObservableObject, ViewModelFeatures {
 //                "https://upload3.inven.co.kr/upload/2021/12/21/bbs/i15560686762.jpg?MW=800"
             ].randomElement() ?? "안댕"
             
-            var msgNo: Int = self(\.msgNo)
+            let msgNo: Int = self(\.msgNo)
             var list: [ChatModel] = self(\.list)
             list.append(.init(memNo: 2805, chatType: .img, sendType: .send, text: "", imgUrl: imgUrl, msgNo: msgNo))
             self.update(\.list, newValue: list)

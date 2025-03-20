@@ -39,11 +39,17 @@ struct CURepresentableView<ContentView: View>: UIViewRepresentable {
             print("none")
         case .reload:
             context.coordinator.reloadData()
+            self.viewModel.action(.changeUpdateType(.none))
         case .reconfigure:
             context.coordinator.reconfigureItems()
+            self.viewModel.action(.changeUpdateType(.none))
         case .scrollToBottom:
             context.coordinator.reconfigureItems()
             uiView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: true)
+            self.viewModel.action(.changeUpdateType(.none))
+        case .isFoucsed:
+            uiView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: false)
+            self.viewModel.action(.changeUpdateType(.none))
         }
     }
     

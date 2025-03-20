@@ -6,10 +6,20 @@
 //
 
 import SwiftUI
-import Kingfisher
 
-struct CUMainView: View {
+import Kingfisher
+import GabTextView
+
+struct CUMainView: View, Equatable {
+    static func == (lhs: CUMainView, rhs: CUMainView) -> Bool {
+        lhs.text == rhs.text &&
+        lhs.height == rhs.height
+    }
+    
     @StateObject var viewModel: CUViewModel = .init()
+    @State private var text: String = ""
+    @State private var height: CGFloat = 100
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         VStack(spacing: 0) {
@@ -44,41 +54,69 @@ struct CUMainView: View {
                     }
                 }
             
-            CURepresentableView {
-                ForEach(Array(viewModel(\.list).enumerated()), id: \.element.id) { index, data in
-                    
-                    switch data.chatType {
-                    case .text:
-                        CUTextCell(text: data.text)
-                            .onAppear {
-                                print("상갑 logEvent \(#function) Text")
-                            }
-                            .onTapGesture {
-                                print("상갑 logEvent \(#function) TextText")
-                            }
-                            .onLongPressGesture {
-                                print("\(#function) index: \(index)")
-                                viewModel.action(.delete(data))
-                            }
-                    case .img:
-                        CUImgCell(url: data.imgUrl)
-                            .onAppear {
-                                print("상갑 logEvent \(#function) KFImage")
-                            }
-                            .onTapGesture {
-                                print("상갑 logEvent \(#function) imgimg")
-                            }
-                            .onLongPressGesture {
-                                print("\(#function) index: \(index)")
-                                viewModel.action(.delete(data))
-                            }
-                    case .delete:
-                        CUDeletedCell()
+            VStack(spacing: 0) {
+                CURepresentableView {
+                    ForEach(Array(viewModel(\.list).enumerated()), id: \.element.id) { index, data in
+                        
+                        switch data.chatType {
+                        case .text:
+                            CUTextCell(text: data.text)
+                                .onAppear {
+                                    print("상갑 logEvent \(#function) Text")
+                                }
+                                .onTapGesture {
+                                    print("상갑 logEvent \(#function) TextText")
+                                }
+                                .onLongPressGesture {
+                                    print("\(#function) index: \(index)")
+                                    viewModel.action(.delete(data))
+                                }
+                        case .img:
+                            CUImgCell(url: data.imgUrl)
+                                .onAppear {
+                                    print("상갑 logEvent \(#function) KFImage")
+                                }
+                                .onTapGesture {
+                                    print("상갑 logEvent \(#function) imgimg")
+                                }
+                                .onLongPressGesture {
+                                    print("\(#function) index: \(index)")
+                                    viewModel.action(.delete(data))
+                                }
+                        case .delete:
+                            CUDeletedCell()
+                        }
                     }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .environmentObject(viewModel)
+                
+                TextView(text: $text)
+                    .textViewConfiguration { textView in
+                        textView.backgroundColor = .systemPink
+                        textView.textContainer.lineFragmentPadding = .zero
+                        textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+                        textView.isEditable = true
+                    }
+                    .setTextViewAppearanceModel(.default)
+                    .controlTextViewDelegate(.automatic)
+                    .receiveTextViewHeight { height = $0 }
+                    .overlayPlaceHolder(.leading) {
+                        Text("Input Message")
+                    }
+                    .focused($isFocused)
+                    .frame(height: height)
+                    .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .environmentObject(viewModel)
+            .compositingGroup()
+        }
+        .onTapGesture {
+            isFocused.toggle()
+        }
+        .onChange(of: isFocused) { newValue in
+            if newValue {
+                self.viewModel.action(.changeUpdateType(.isFoucsed))
+            }
         }
     }
 }
