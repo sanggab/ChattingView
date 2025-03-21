@@ -11,6 +11,7 @@
 		4BDCAC362D7C603600F866ED /* GabTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 4BDCAC352D7C603600F866ED /* GabTextView */; };
 		4BDCAC382D7C604400F866ED /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDCAC2D2D7C5FF300F866ED /* Core.framework */; };
 		4BDCAC392D7C604400F866ED /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDCAC2D2D7C5FF300F866ED /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EFB64C832D8CF49F00AA7074 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = EFB64C822D8CF49F00AA7074 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 			files = (
 				4BDCAC332D7C602300F866ED /* Alamofire in Frameworks */,
 				4BDCAC382D7C604400F866ED /* Core.framework in Frameworks */,
+				EFB64C832D8CF49F00AA7074 /* ComposableArchitecture in Frameworks */,
 				4BDCAC362D7C603600F866ED /* GabTextView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -172,6 +174,7 @@
 			packageProductDependencies = (
 				4BDCAC322D7C602300F866ED /* Alamofire */,
 				4BDCAC352D7C603600F866ED /* GabTextView */,
+				EFB64C822D8CF49F00AA7074 /* ComposableArchitecture */,
 			);
 			productName = ChattingView;
 			productReference = 4BDCABC02D7C5ABC00F866ED /* ChattingView.app */;
@@ -258,6 +261,7 @@
 			packageReferences = (
 				4BDCAC312D7C602300F866ED /* XCRemoteSwiftPackageReference "Alamofire" */,
 				4BDCAC342D7C603600F866ED /* XCRemoteSwiftPackageReference "swiftui-textView" */,
+				EFB64C812D8CF49F00AA7074 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4BDCABC12D7C5ABC00F866ED /* Products */;
@@ -658,6 +662,14 @@
 				minimumVersion = 2.2.0;
 			};
 		};
+		EFB64C812D8CF49F00AA7074 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.18.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -670,6 +682,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4BDCAC342D7C603600F866ED /* XCRemoteSwiftPackageReference "swiftui-textView" */;
 			productName = GabTextView;
+		};
+		EFB64C822D8CF49F00AA7074 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFB64C812D8CF49F00AA7074 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
