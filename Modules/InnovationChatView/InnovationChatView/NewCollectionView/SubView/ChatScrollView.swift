@@ -23,17 +23,22 @@ struct ChatScrollView: View {
     var body: some View {
         let _ = Self._printChanges()
         ScrollView {
-            
             Group {
                 Text("hi")
-                listView
-                listView
-                listView
-                listView
+                    .getSize { size in
+                        print("\(#file) \(#function) Text size: \(size)")
+                    }
+//                listView
+//                listView
+//                listView
+//                listView
             }
-            .rotationEffect(.degrees(180)).scaleEffect(x: -1, y: 1, anchor: .center)
         }
-        .rotationEffect(.degrees(180)).scaleEffect(x: -1, y: 1, anchor: .center)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.random)
+        .getSize { size in
+            print("\(#file) \(#function) ScrollView size: \(size)")
+        }
     }
 }
 

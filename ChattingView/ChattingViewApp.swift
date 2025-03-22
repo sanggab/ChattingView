@@ -13,9 +13,9 @@ struct ChattingViewApp: App {
         WindowGroup {
 //            ContentView()
 //            SUCollectionView()
-//            CUMainView()
+            CUMainView()
 //            KeyboardView()
-            ChatView()
+//            ChatView()
         }
     }
 }

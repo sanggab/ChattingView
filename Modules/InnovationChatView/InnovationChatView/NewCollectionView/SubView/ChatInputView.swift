@@ -13,7 +13,6 @@ import ComposableArchitecture
 struct ChatInputView: View {
     @Perception.Bindable var store: StoreOf<InputViewStore>
     
-    @State private var textViewHeight: CGFloat = 0
     @FocusState private var focusTextView: Bool
     
     var body: some View {
@@ -26,12 +25,12 @@ struct ChatInputView: View {
                     textView.textContainer.lineFragmentPadding = .zero
                 }
                 .setTextViewAppearanceModel(.default)
-                .receiveTextViewHeight { textViewHeight = $0 }
+                .receiveTextViewHeight { store.send(.updateTextViewHeight($0)) }
                 .overlayPlaceHolder(.leading) {
                     Text("Input Message")
                 }
                 .focused($focusTextView)
-                .frame(height: textViewHeight)
+                .frame(height: store.textViewHeight)
                 .frame(maxWidth: .infinity)
                 .bind($store.isFocused.sending(\.updateIsFocused), to: $focusTextView)
         }

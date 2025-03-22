@@ -53,6 +53,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4B9166442D8EDACF00AC520C /* KeyBoardTestApp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KeyBoardTestApp.xcodeproj; path = KeyBoardTestApp/KeyBoardTestApp.xcodeproj; sourceTree = "<group>"; };
+		4B9166642D8EDD8000AC520C /* InnovationChatView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InnovationChatView.xcodeproj; path = InnovationChatView/InnovationChatView.xcodeproj; sourceTree = "<group>"; };
 		4BDCABC02D7C5ABC00F866ED /* ChattingView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChattingView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BDCABD02D7C5ABD00F866ED /* ChattingViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChattingViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BDCABDA2D7C5ABD00F866ED /* ChattingViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChattingViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +108,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B9166452D8EDACF00AC520C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4B9166652D8EDD8000AC520C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4BDCABB72D7C5ABC00F866ED = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +147,8 @@
 		4BDCABFD2D7C5FC600F866ED /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				4B9166642D8EDD8000AC520C /* InnovationChatView.xcodeproj */,
+				4B9166442D8EDACF00AC520C /* KeyBoardTestApp.xcodeproj */,
 				4BDCAC282D7C5FF300F866ED /* Core.xcodeproj */,
 			);
 			path = Modules;
@@ -270,6 +288,14 @@
 				{
 					ProductGroup = 4BDCAC292D7C5FF300F866ED /* Products */;
 					ProjectRef = 4BDCAC282D7C5FF300F866ED /* Core.xcodeproj */;
+				},
+				{
+					ProductGroup = 4B9166652D8EDD8000AC520C /* Products */;
+					ProjectRef = 4B9166642D8EDD8000AC520C /* InnovationChatView.xcodeproj */;
+				},
+				{
+					ProductGroup = 4B9166452D8EDACF00AC520C /* Products */;
+					ProjectRef = 4B9166442D8EDACF00AC520C /* KeyBoardTestApp.xcodeproj */;
 				},
 			);
 			projectRoot = "";

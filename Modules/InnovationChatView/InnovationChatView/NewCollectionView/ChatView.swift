@@ -20,8 +20,6 @@ struct ChatView: View {
             VStack(spacing: 0) {
                 if let scrollViewStore = store.scope(state: \.scrollViewState, action: \.scrollViewAction) {
                     ChatScrollView(store: scrollViewStore)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(.random)
                 } else {
                     Text("scrollViewStore 없네")
                 }

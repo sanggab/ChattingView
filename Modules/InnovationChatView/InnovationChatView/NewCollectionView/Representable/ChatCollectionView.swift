@@ -51,7 +51,7 @@ struct ChatCollectionView<ContentView: View>: UIViewRepresentable {
 //        }
     }
     
-    func makeCoordinator() -> CUCollectionViewCoordinator<ContentView> {
-        return CUCollectionViewCoordinator(contentView: viewBuilderClosure)
+    func makeCoordinator() -> ChatViewCoordinator<ContentView> {
+        return ChatViewCoordinator(contentView: viewBuilderClosure)
     }
 }
