@@ -19,6 +19,7 @@ struct InputViewStore {
     
     enum Action: Equatable {
         case updateText(String)
+        case updateIsFocused(Bool)
     }
     
     var body: some Reducer<State, Action> {
@@ -26,6 +27,9 @@ struct InputViewStore {
             switch action {
             case .updateText(let text):
                 state.text = text
+                return .none
+            case .updateIsFocused(let isFocused):
+                state.isFocused = isFocused
                 return .none
             }
         }

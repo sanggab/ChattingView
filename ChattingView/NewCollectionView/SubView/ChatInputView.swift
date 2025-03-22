@@ -14,6 +14,7 @@ struct ChatInputView: View {
     @Perception.Bindable var store: StoreOf<InputViewStore>
     
     @State private var textViewHeight: CGFloat = 0
+    @FocusState private var focusTextView: Bool
     
     var body: some View {
         let _ = Self._printChanges()
@@ -29,9 +30,10 @@ struct ChatInputView: View {
                 .overlayPlaceHolder(.leading) {
                     Text("Input Message")
                 }
+                .focused($focusTextView)
                 .frame(height: textViewHeight)
                 .frame(maxWidth: .infinity)
-                .focused(<#T##FocusState<Bool>.Binding#>)
+                .bind($store.isFocused.sending(\.updateIsFocused), to: $focusTextView)
         }
     }
 }

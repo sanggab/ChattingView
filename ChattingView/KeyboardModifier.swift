@@ -36,7 +36,7 @@ struct KeyboardModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .onReceive(Publishers.Merge(keyboardWillShow2, keyboardWillHide2)) { output in
-                let height: CGFloat = (output["UIKeyboardFrameEndUserInfoKey"] as? CGRect)?.height ?? .zero
+                let height: CGFloat = self.offset == .zero ? ((output["UIKeyboardFrameEndUserInfoKey"] as? CGRect)?.height ?? .zero ) : .zero
                 let duration: TimeInterval = (output["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval) ?? .zero
                 let curve: Int = (output["UIKeyboardAnimationCurveUserInfoKey"] as? Int) ?? .zero
                 

@@ -14,8 +14,6 @@ struct ChatView: View {
         ChatViewStore()
     })
     
-    @FocusState private var isFocused: Bool
-    
     var body: some View {
         let _ = Self._printChanges()
         WithPerceptionTracking {
@@ -40,9 +38,8 @@ struct ChatView: View {
                 store.send(.onAppear)
             }
         }
-        .focused($isFocused)
         .onTapGesture {
-            isFocused.toggle()
+            store.send(.inputViewAction(.updateIsFocused(false)))
         }
     }
 }

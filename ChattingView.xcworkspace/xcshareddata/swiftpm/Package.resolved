@@ -141,8 +141,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sanggab/swiftui-textView",
       "state" : {
-        "revision" : "5fd80044df68963785127ee06a1209ca8dbf1efa",
-        "version" : "2.3.0"
+        "revision" : "ccfa4b5939fbbd9cf2eeb2b40718312df1b50eab",
+        "version" : "2.4.0"
       }
     },
     {
