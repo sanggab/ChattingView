@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import Core
+
 final class CUCollectionViewCoordinator<ContentView: View>: NSObject, UICollectionViewDelegate {
     
     var dataSource: UICollectionViewDiffableDataSource<ChatSection, ChatModel>!
@@ -98,5 +100,9 @@ final class CUCollectionViewCoordinator<ContentView: View>: NSObject, UICollecti
         var snapShot: NSDiffableDataSourceSnapshot<ChatSection, ChatModel> = self.dataSource.snapshot()
         snapShot.reconfigureItems(snapShot.itemIdentifiers)
         self.dataSource.apply(snapShot, animatingDifferences: false)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("상갑 logEvent \(#function) scrollView.contentOffset: \(scrollView.contentOffset)")
     }
 }

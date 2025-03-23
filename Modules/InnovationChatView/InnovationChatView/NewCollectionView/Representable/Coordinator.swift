@@ -8,6 +8,7 @@
 import SwiftUI
 
 import Core
+import ComposableArchitecture
 
 final class ChatViewCoordinator<ContentView: View>: NSObject, UICollectionViewDelegate {
     
@@ -15,32 +16,14 @@ final class ChatViewCoordinator<ContentView: View>: NSObject, UICollectionViewDe
     
     var viewBuilderClosure: () -> ContentView
     
-    init(@ViewBuilder contentView: @escaping () -> ContentView) {
+    let store: StoreOf<ScrollViewStore>
+    
+    init(@ViewBuilder contentView: @escaping () -> ContentView,
+         store: StoreOf<ScrollViewStore>) {
         print("상갑 logEvent \(#function) CUCollectionViewCoordinator")
         self.viewBuilderClosure = contentView
+        self.store = store
     }
-    
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 1
-//    }
-    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        print("\(#function) indexPath: \(indexPath)")
-//        let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "chatcell", for: indexPath)
-//
-//        cell.contentConfiguration = UIHostingConfiguration {
-//            viewBuilderClosure()
-//        }
-//        .minSize(width: 0, height: 0)
-//        .margins(.all, 0)
-//
-//        return cell
-//    }
-    
     
     func createLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { sectionIndex, environment in
@@ -100,6 +83,10 @@ final class ChatViewCoordinator<ContentView: View>: NSObject, UICollectionViewDe
         var snapShot: NSDiffableDataSourceSnapshot<ChatSection, ChatModel> = self.dataSource.snapshot()
         snapShot.reconfigureItems(snapShot.itemIdentifiers)
         self.dataSource.apply(snapShot, animatingDifferences: false)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("상갑 logEvent \(#function) scrollView.contentOffset: \(scrollView.contentOffset)")
     }
 }
 

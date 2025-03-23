@@ -18,26 +18,18 @@ struct ChatScrollView: View {
     
     let keyboardWillHideNotification = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification).compactMap(\.userInfo)
     
-    @State private var keyboardHeight: CGFloat = 0
-    
     var body: some View {
         let _ = Self._printChanges()
-        ScrollView {
-            Group {
-                Text("hi")
-                    .getSize { size in
-                        print("\(#file) \(#function) Text size: \(size)")
-                    }
-//                listView
-//                listView
-//                listView
-//                listView
+        ChatCollectionView(contentView: {
+            LazyVStack(spacing: 0) {
+                listView
             }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.random)
+            .getSize { size in
+                self.store.send(.updateListHeight(size.height))
+            }
+        }, store: store)
         .getSize { size in
-            print("\(#file) \(#function) ScrollView size: \(size)")
+            self.store.send(.updateScrollViewHeight(size.height))
         }
     }
 }
@@ -86,6 +78,9 @@ extension ChatScrollView {
             Rectangle()
                 .fill(.random)
                 .frame(height: 50)
+                .overlay(alignment: .bottom) {
+                    Text("끝 영역")
+                }
         }
     }
 }

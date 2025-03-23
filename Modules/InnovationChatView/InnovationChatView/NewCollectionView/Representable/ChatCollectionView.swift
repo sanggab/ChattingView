@@ -7,12 +7,19 @@
 
 import SwiftUI
 
+import Core
+import ComposableArchitecture
+
 struct ChatCollectionView<ContentView: View>: UIViewRepresentable {
     
     @ViewBuilder var viewBuilderClosure: () -> ContentView
     
-    init(@ViewBuilder contentView: @escaping () -> ContentView) {
+    let store: StoreOf<ScrollViewStore>
+    
+    init(@ViewBuilder contentView: @escaping () -> ContentView,
+         store: StoreOf<ScrollViewStore>) {
         self.viewBuilderClosure = contentView
+        self.store = store
     }
     
     func makeUIView(context: Context) -> UICollectionView {
@@ -30,28 +37,9 @@ struct ChatCollectionView<ContentView: View>: UIViewRepresentable {
         
     func updateUIView(_ uiView: UICollectionView, context: Context) {
         print("상갑 logEvent \(#function)")
-//        print("상갑 logEvent \(#function) chatState : \(viewModel(\.chatState))")
-        
-//        switch viewModel(\.chatState) {
-//        case .none:
-//            print("none")
-//        case .reload:
-//            context.coordinator.reloadData()
-//            self.viewModel.action(.changeUpdateType(.none))
-//        case .reconfigure:
-//            context.coordinator.reconfigureItems()
-//            self.viewModel.action(.changeUpdateType(.none))
-//        case .scrollToBottom:
-//            context.coordinator.reconfigureItems()
-//            uiView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: true)
-//            self.viewModel.action(.changeUpdateType(.none))
-//        case .isFoucsed:
-//            uiView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: false)
-//            self.viewModel.action(.changeUpdateType(.none))
-//        }
     }
     
     func makeCoordinator() -> ChatViewCoordinator<ContentView> {
-        return ChatViewCoordinator(contentView: viewBuilderClosure)
+        return ChatViewCoordinator(contentView: viewBuilderClosure, store: self.store)
     }
 }
