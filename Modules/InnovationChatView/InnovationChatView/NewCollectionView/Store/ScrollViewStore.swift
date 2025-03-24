@@ -18,6 +18,9 @@ struct ScrollViewStore {
         var list: IdentifiedArrayOf<ChatModel> = []
         var scrollViewHeight: CGFloat = 0
         var listHeight: CGFloat = 0
+        var isFocused: Bool = false
+        var textViewHeight: CGFloat = 0
+        var keyboardHeight: CGFloat = 0
     }
     
     enum Action: Equatable {
@@ -25,6 +28,9 @@ struct ScrollViewStore {
         case updateList([ChatModel])
         case updateScrollViewHeight(CGFloat)
         case updateListHeight(CGFloat)
+        case updateIsFocused(Bool)
+        case updateTextViewHeight(CGFloat)
+        case updateKeyboardHeight(CGFloat)
     }
     
     var body: some Reducer<State, Action> {
@@ -44,6 +50,18 @@ struct ScrollViewStore {
                 
             case .updateListHeight(let height):
                 state.listHeight = height
+                return .none
+                
+            case .updateIsFocused(let isFocused):
+                state.isFocused = isFocused
+                return .none
+                
+            case .updateTextViewHeight(let height):
+                state.textViewHeight = height
+                return .none
+                
+            case .updateKeyboardHeight(let height):
+                state.keyboardHeight = height
                 return .none
             }
         }

@@ -18,18 +18,43 @@ struct ChatScrollView: View {
     
     let keyboardWillHideNotification = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification).compactMap(\.userInfo)
     
+    @State private var hoho: CGFloat = 0
+    
     var body: some View {
         let _ = Self._printChanges()
-        ChatCollectionView(contentView: {
-            LazyVStack(spacing: 0) {
-                listView
-            }
+        WithPerceptionTracking {
+            ChatCollectionView(contentView: {
+                LazyVStack(spacing: 0) {
+                    listView
+                    listView
+                }
+                .getSize { size in
+                    self.store.send(.updateListHeight(size.height))
+                }
+            }, store: store, offsetY: hoho)
             .getSize { size in
-                self.store.send(.updateListHeight(size.height))
+                self.store.send(.updateScrollViewHeight(size.height))
             }
-        }, store: store)
-        .getSize { size in
-            self.store.send(.updateScrollViewHeight(size.height))
+            .onChange(of: store.keyboardHeight) { newValue in
+                print("\(#function) newValue: \(newValue)")
+                
+                if newValue != 0 {
+                    let listHeigh: CGFloat = self.store.listHeight
+                    let scrollViewHeight: CGFloat = self.store.scrollViewHeight
+                    let keyboardHeight: CGFloat = newValue
+                    
+                    print("\(#function) listHeigh: \(listHeigh)")
+                    print("\(#function) scrollViewHeight: \(scrollViewHeight)")
+                    print("\(#function) textViewHeight: \(keyboardHeight)")
+                    
+                    let offsetY = scrollViewHeight - listHeigh - keyboardHeight
+                    self.hoho = abs(offsetY)
+                    self.store.send(.updateState(.scrollToBottom))
+                    print("\(#function) offsetY: \(offsetY)")
+                } else {
+                    self.hoho = 0
+                }
+            }
         }
     }
 }

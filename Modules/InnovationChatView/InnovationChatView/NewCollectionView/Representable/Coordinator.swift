@@ -86,7 +86,7 @@ final class ChatViewCoordinator<ContentView: View>: NSObject, UICollectionViewDe
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("상갑 logEvent \(#function) scrollView.contentOffset: \(scrollView.contentOffset)")
+        print("상갑 logEvent \(#function) contentOffset: \(scrollView.contentOffset)")
     }
 }
 

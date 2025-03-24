@@ -33,9 +33,10 @@ struct ChatViewStore {
                 state.scrollViewState = ScrollViewStore.State()
                 return .none
             case .inputViewAction(let action):
-                return .none
+                return self.inputViewAction(action: action)
+                
             case .scrollViewAction(let action):
-                return .none
+                return self.scrollViewAction(action: action)
             }
         }
         .ifLet(\.inputState, action: \.inputViewAction) {
@@ -43,6 +44,55 @@ struct ChatViewStore {
         }
         .ifLet(\.scrollViewState, action: \.scrollViewAction) {
             ScrollViewStore()
+        }
+    }
+    
+    func inputViewAction(action: InputViewStore.Action) -> Effect<Action> {
+        switch action {
+        case .updateText(let string):
+//            print("\(#file) \(#function) string: \(string)")
+            return .none
+            
+        case .updateIsFocused(let bool):
+//            print("\(#file) \(#function) updateIsFocused: \(bool)")
+            return .send(.scrollViewAction(.updateIsFocused(bool)))
+            
+        case .updateTextViewHeight(let cGFloat):
+//            print("\(#file) \(#function) updateTextViewHeight: \(cGFloat)")
+            return .send(.scrollViewAction(.updateTextViewHeight(cGFloat)))
+            
+        case .updateKeyboardHeight(let cGFloat):
+            print("\(#function) updateKeyboardHeight: \(cGFloat)")
+            return .send(.scrollViewAction(.updateKeyboardHeight(cGFloat)))
+        }
+    }
+    
+    func scrollViewAction(action: ScrollViewStore.Action) -> Effect<Action> {
+        switch action {
+        case .updateState(let updateType):
+            print("\(#file) \(#function) updateState: \(updateType)")
+            return .none
+            
+        case .updateList(let array):
+//            print("\(#file) \(#function) updateList: \(array)")
+            return .none
+            
+        case .updateScrollViewHeight(let cGFloat):
+//            print("\(#file) \(#function) updateScrollViewHeight: \(cGFloat)")
+            return .none
+            
+        case .updateListHeight(let cGFloat):
+//            print("\(#file) \(#function) updateListHeight: \(cGFloat)")
+            return .none
+            
+        case .updateIsFocused(let bool):
+//            print("\(#file) \(#function) updateIsFocused: \(bool)")
+            return .none
+        case .updateTextViewHeight(let cGFloat):
+            return .none
+            
+        case .updateKeyboardHeight(let cGFloat):
+            return .none
         }
     }
 }
