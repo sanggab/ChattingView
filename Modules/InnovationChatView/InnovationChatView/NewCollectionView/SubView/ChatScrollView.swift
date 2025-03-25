@@ -35,26 +35,6 @@ struct ChatScrollView: View {
             .getSize { size in
                 self.store.send(.updateScrollViewHeight(size.height))
             }
-            .onChange(of: store.keyboardHeight) { newValue in
-                print("\(#function) newValue: \(newValue)")
-                
-                if newValue != 0 {
-                    let listHeigh: CGFloat = self.store.listHeight
-                    let scrollViewHeight: CGFloat = self.store.scrollViewHeight
-                    let keyboardHeight: CGFloat = newValue
-                    
-                    print("\(#function) listHeigh: \(listHeigh)")
-                    print("\(#function) scrollViewHeight: \(scrollViewHeight)")
-                    print("\(#function) textViewHeight: \(keyboardHeight)")
-                    
-                    let offsetY = scrollViewHeight - listHeigh - keyboardHeight
-                    self.hoho = abs(offsetY)
-                    self.store.send(.updateState(.scrollToBottom))
-                    print("\(#function) offsetY: \(offsetY)")
-                } else {
-                    self.hoho = 0
-                }
-            }
         }
     }
 }

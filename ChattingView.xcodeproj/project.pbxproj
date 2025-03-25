@@ -59,6 +59,8 @@
 		4BDCABD02D7C5ABD00F866ED /* ChattingViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChattingViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BDCABDA2D7C5ABD00F866ED /* ChattingViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChattingViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BDCAC282D7C5FF300F866ED /* Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Core.xcodeproj; path = Core/Core.xcodeproj; sourceTree = "<group>"; };
+		EF7AF5272D9224E10094303B /* ChattingFrameWork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ChattingFrameWork.xcodeproj; path = ChattingFrameWork/ChattingFrameWork.xcodeproj; sourceTree = SOURCE_ROOT; };
+		EF7AF5622D922B9A0094303B /* ChattingUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ChattingUtils.xcodeproj; path = ChattingUtils/ChattingUtils.xcodeproj; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -147,6 +149,8 @@
 		4BDCABFD2D7C5FC600F866ED /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				EF7AF5622D922B9A0094303B /* ChattingUtils.xcodeproj */,
+				EF7AF5272D9224E10094303B /* ChattingFrameWork.xcodeproj */,
 				4B9166642D8EDD8000AC520C /* InnovationChatView.xcodeproj */,
 				4B9166442D8EDACF00AC520C /* KeyBoardTestApp.xcodeproj */,
 				4BDCAC282D7C5FF300F866ED /* Core.xcodeproj */,
@@ -167,6 +171,20 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EF7AF5282D9224E10094303B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EF7AF5632D922B9A0094303B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +303,14 @@
 			productRefGroup = 4BDCABC12D7C5ABC00F866ED /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = EF7AF5282D9224E10094303B /* Products */;
+					ProjectRef = EF7AF5272D9224E10094303B /* ChattingFrameWork.xcodeproj */;
+				},
+				{
+					ProductGroup = EF7AF5632D922B9A0094303B /* Products */;
+					ProjectRef = EF7AF5622D922B9A0094303B /* ChattingUtils.xcodeproj */;
+				},
 				{
 					ProductGroup = 4BDCAC292D7C5FF300F866ED /* Products */;
 					ProjectRef = 4BDCAC282D7C5FF300F866ED /* Core.xcodeproj */;
