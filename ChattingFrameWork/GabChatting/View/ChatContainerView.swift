@@ -40,13 +40,8 @@ public struct ChatContainerView<ContentView: View, ContentView2: View>: View {
     
     @ViewBuilder private var inputViewClosure: (() -> ContentView2)
     
-    @State var text: String = ""
-    @FocusState private var isFocused: Bool
-    
-    @State private var blankHeight: CGFloat = 0
-    @State private var collectionViewHeight: CGFloat = 0
-    @State private var viewBuilderHeight: CGFloat = 0
-    @State private var inputViewHeight: CGFloat = 0
+    @State private var keyboardHeight: CGFloat = 0
+    @State private var inputHeight: CGFloat = 0
     
     public init(@ViewBuilder listViewClosure: @escaping () -> ContentView,
                 @ViewBuilder inputViewClosure: @escaping () -> ContentView2) {
@@ -62,25 +57,10 @@ public struct ChatContainerView<ContentView: View, ContentView2: View>: View {
                 Group {
                     listViewClosure()
                         .background(.blue)
-                        .background {
-                            GeometryReader { proxy in
-                                Color.clear
-                                    .preference(key: ListHeightKey.self, value: proxy.size.height)
-                            }
-                        }
-                    
                 }
-            }, blankHeight: $blankHeight)
-            .background {
-                GeometryReader { proxy in
-                    Color.clear
-                        .preference(key: ContainerHeightKey.self, value: proxy.size.height)
-                }
-            }
-
+            }, keyboardHeight: keyboardHeight, inputHeight: inputHeight)
             
             inputViewClosure()
-                .focused($isFocused)
                 .background {
                     GeometryReader { proxy in
                         Color.clear
@@ -88,43 +68,15 @@ public struct ChatContainerView<ContentView: View, ContentView2: View>: View {
                     }
                 }
         }
-        .onPreferenceChange(ListHeightKey.self, perform: { value in
-            self.viewBuilderHeight = value
-        })
-        .onPreferenceChange(ContainerHeightKey.self, perform: { value in
-            self.collectionViewHeight = value
-        })
-        .onPreferenceChange(InputHeightKey.self, perform: { value in
-            self.inputViewHeight = value
-        })
         .keyboardWillShow { option in
             print("상갑 logEvent \(#function) keyboardWillShow: \(option)")
-            
-            print("상갑 logEvent \(#function) collectionViewHeight: \(collectionViewHeight)")
-            
-            print("상갑 logEvent \(#function) viewBuilderHeight: \(viewBuilderHeight)")
-            
-            print("상갑 logEvent \(#function) inputViewHeight: \(inputViewHeight)")
-            
-            
-//            if collectionViewHeight <= viewBuilderHeight {
-//                blankHeight = option.size.height - inputViewHeight
-//            } else {
-//                blankHeight = collectionViewHeight - viewBuilderHeight - option.size.height
-//            }
+            keyboardHeight = option.size.height
         }
         .keyboardWillHide { option in
             print("상갑 logEvent \(#function) keyboardWillHide: \(option)")
-            withAnimation(option.makingCurveAnimation()) {
-                blankHeight = 0
-            }
+            keyboardHeight = .zero
         }
-        .onChange(of: blankHeight) { newValue in
-            print("상갑 logEvent \(#function) blankHeight: \(blankHeight)")
-        }
-        .onChange(of: isFocused) { newValue in
-            print("상갑 logEvent \(#function) isFocused: \(isFocused)")
-        }
+        .onPreferenceChange(InputHeightKey.self) { inputHeight = $0 }
     }
 }
 

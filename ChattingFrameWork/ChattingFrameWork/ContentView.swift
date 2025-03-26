@@ -18,7 +18,7 @@ struct ContentView: View {
     var body: some View {
         ChatContainerView {
             listView
-//            listView
+            listView
 //            listView
         } inputViewClosure: {
             TextView(text: $text)

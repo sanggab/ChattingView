@@ -11,12 +11,15 @@ struct ChattingCollectionView<ContentView: View>: UIViewRepresentable {
     
     @ViewBuilder let viewBuilderClosure: () -> ContentView
     
-    @Binding public var blankHeight: CGFloat
+    let keyboardHeight: CGFloat
+    let inputHeight: CGFloat
     
     init(@ViewBuilder viewBuilderClosure: @escaping () -> ContentView,
-         blankHeight: Binding<CGFloat>) {
+         keyboardHeight: CGFloat,
+         inputHeight: CGFloat) {
         self.viewBuilderClosure = viewBuilderClosure
-        self._blankHeight = blankHeight
+        self.keyboardHeight = keyboardHeight
+        self.inputHeight = inputHeight
     }
     
     func makeUIView(context: Context) -> UICollectionView {
@@ -35,35 +38,45 @@ struct ChattingCollectionView<ContentView: View>: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UICollectionView, context: Context) {
-        print("상갑 logEvent \(#function)")
-        let offsetY: CGFloat = uiView.contentOffset.y
-        print("상갑 logEvent \(#function) blankHeight: \(blankHeight)")
+        print("상갑 logEvent \(#function) uiView.frame: \(uiView.frame)")
+        print("상갑 logEvent \(#function) keyboardHeight: \(keyboardHeight)")
+        print("상갑 logEvent \(#function) inputHeight: \(inputHeight)")
         print("상갑 logEvent \(#function) contentoffset: \(uiView.contentOffset)")
-        print("상갑 logEvent \(#function) uiView.intrinsicContentSize: \(uiView.intrinsicContentSize)")
         print("상갑 logEvent \(#function) uiView.contentSize: \(uiView.contentSize)")
-        let firstCondition = uiView.contentSize.height > blankHeight
+        let viewHeight: CGFloat = uiView.frame.height
+        let contentHeight: CGFloat = uiView.contentSize.height
+        let offsetY: CGFloat = uiView.contentOffset.y
         
-        switch Int(blankHeight) {
-        case 0:
-            print("0이다")
-        case 1...Int.max:
-            print("양수")
-        case Int.min..<0:
-            print("음수")
-            
-        default:
-            break
+        if keyboardHeight > 0 {
+            print("키보드 올라옴")
+            if contentHeight > viewHeight {
+                print("리스트가 더 많다")
+                let moveOffsetY: CGFloat = offsetY + keyboardHeight - inputHeight
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    uiView.setContentOffset(CGPoint(x: 0, y: abs(moveOffsetY)), animated: true)
+                }
+            } else {
+                print("리스트가 더 적다")
+                let moveOffsetY: CGFloat = viewHeight - contentHeight - keyboardHeight + inputHeight
+                print("상갑 logEvent \(#function) : \(moveOffsetY)")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    uiView.setContentOffset(CGPoint(x: 0, y: abs(moveOffsetY)), animated: true)
+                }
+            }
+        } else {
+            print("키보드 내려감")
         }
         
-        if blankHeight != .zero {
-//            if blankHeight > offsetY {
-//                
+//        if contentHeight > viewHeight {
+//            print("리스트가 더 많다")
+//        } else {
+//            print("리스트가 더 적다")
+//            if keyboardHeight > 0 {
+//                print("키보드 올라옴")
 //            } else {
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-//                    uiView.setContentOffset(CGPoint(x: 0, y: offsetY + blankHeight), animated: true)
-//                }
+//                print("키보드 내려감")
 //            }
-        }
+//        }
     }
     
     func makeCoordinator() -> ChattingCoordinator<ContentView> {
