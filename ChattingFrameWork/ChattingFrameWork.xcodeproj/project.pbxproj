@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF0FD4D62D9242D900C842ED /* GabTextView in Frameworks */ = {isa = PBXBuildFile; productRef = EF0FD4D52D9242D900C842ED /* GabTextView */; };
+		EF0FD4D82D92451300C842ED /* GabTextView in Frameworks */ = {isa = PBXBuildFile; productRef = EF0FD4D72D92451300C842ED /* GabTextView */; };
 		EF7AF5382D9225000094303B /* GabChatting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7AF5322D9225000094303B /* GabChatting.framework */; };
 		EF7AF5392D9225000094303B /* GabChatting.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EF7AF5322D9225000094303B /* GabChatting.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EF7AF5712D922C0C0094303B /* ChattingUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7AF5702D922C0C0094303B /* ChattingUtils.framework */; };
@@ -73,6 +75,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF7AF5382D9225000094303B /* GabChatting.framework in Frameworks */,
+				EF0FD4D62D9242D900C842ED /* GabTextView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +84,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF7AF5712D922C0C0094303B /* ChattingUtils.framework in Frameworks */,
+				EF0FD4D82D92451300C842ED /* GabTextView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +150,7 @@
 			);
 			name = ChattingFrameWork;
 			packageProductDependencies = (
+				EF0FD4D52D9242D900C842ED /* GabTextView */,
 			);
 			productName = ChattingFrameWork;
 			productReference = EF7AF5162D9224DF0094303B /* ChattingFrameWork.app */;
@@ -170,6 +175,7 @@
 			);
 			name = GabChatting;
 			packageProductDependencies = (
+				EF0FD4D72D92451300C842ED /* GabTextView */,
 			);
 			productName = GabChatting;
 			productReference = EF7AF5322D9225000094303B /* GabChatting.framework */;
@@ -203,6 +209,9 @@
 			);
 			mainGroup = EF7AF50D2D9224DF0094303B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				EF0FD4D42D9242D900C842ED /* XCRemoteSwiftPackageReference "swiftui-textView" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EF7AF5172D9224DF0094303B /* Products */;
 			projectDirPath = "";
@@ -540,6 +549,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EF0FD4D42D9242D900C842ED /* XCRemoteSwiftPackageReference "swiftui-textView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sanggab/swiftui-textView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EF0FD4D52D9242D900C842ED /* GabTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF0FD4D42D9242D900C842ED /* XCRemoteSwiftPackageReference "swiftui-textView" */;
+			productName = GabTextView;
+		};
+		EF0FD4D72D92451300C842ED /* GabTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF0FD4D42D9242D900C842ED /* XCRemoteSwiftPackageReference "swiftui-textView" */;
+			productName = GabTextView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EF7AF50E2D9224DF0094303B /* Project object */;
 }
