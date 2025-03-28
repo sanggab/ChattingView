@@ -13,11 +13,21 @@ public struct KeyboardOption: Hashable {
     public let size: CGSize
     public let curve: Int
     public let duration: TimeInterval
+    public var state: KeyboardState
     
-    public init(size: CGSize, curve: Int, duration: TimeInterval) {
+    public static let `default`: KeyboardOption = .init(size: .zero,
+                                                        curve: .zero,
+                                                        duration: .zero,
+                                                        state: .none)
+    
+    public init(size: CGSize,
+                curve: Int,
+                duration: TimeInterval,
+                state: KeyboardState = .none) {
         self.size = size
         self.curve = curve
         self.duration = duration
+        self.state = state
     }
 }
 
@@ -37,7 +47,10 @@ extension KeyboardOption {
     }
 }
 
+@frozen
 public enum KeyboardState: Hashable {
+    case none
+    
     case willShow
     case willHide
     
@@ -80,7 +93,10 @@ public struct KeyboardModifier: ViewModifier {
                 let curve: Int = (userInfo["UIKeyboardAnimationCurveUserInfoKey"] as? Int) ?? .zero
                 let duration: TimeInterval = (userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval) ?? .zero
                 
-                let keyboardOption: KeyboardOption = self.makeKeyboardOption(size: size, curve: curve, duration: duration)
+                let keyboardOption: KeyboardOption = self.makeKeyboardOption(size: size,
+                                                                             curve: curve,
+                                                                             duration: duration,
+                                                                             state: .willShow)
                 
                 self.willShow?(keyboardOption)
             }
@@ -89,29 +105,36 @@ public struct KeyboardModifier: ViewModifier {
                 let curve: Int = (userInfo["UIKeyboardAnimationCurveUserInfoKey"] as? Int) ?? .zero
                 let duration: TimeInterval = (userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval) ?? .zero
                 
-                let keyboardOption: KeyboardOption = self.makeKeyboardOption(size: size, curve: curve, duration: duration)
+                let keyboardOption: KeyboardOption = self.makeKeyboardOption(size: size,
+                                                                             curve: curve,
+                                                                             duration: duration,
+                                                                             state: .didShow)
                 
                 self.didShow?(keyboardOption)
             }
             .onReceive(keyboardWillHide) { userInfo in
                 let size: CGSize = (userInfo["UIKeyboardFrameEndUserInfoKey"] as? CGRect)?.size ?? .zero
-                let newSize: CGSize = .init(width: size.width, height: .zero)
                 
                 let curve: Int = (userInfo["UIKeyboardAnimationCurveUserInfoKey"] as? Int) ?? .zero
                 let duration: TimeInterval = (userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval) ?? .zero
                 
-                let keyboardOption: KeyboardOption = self.makeKeyboardOption(size: newSize, curve: curve, duration: duration)
+                let keyboardOption: KeyboardOption = self.makeKeyboardOption(size: size,
+                                                                             curve: curve,
+                                                                             duration: duration,
+                                                                             state: .willHide)
                 
                 self.willHide?(keyboardOption)
             }
             .onReceive(keyboardDidHide) { userInfo in
                 let size: CGSize = (userInfo["UIKeyboardFrameEndUserInfoKey"] as? CGRect)?.size ?? .zero
-                let newSize: CGSize = .init(width: size.width, height: .zero)
                 
                 let curve: Int = (userInfo["UIKeyboardAnimationCurveUserInfoKey"] as? Int) ?? .zero
                 let duration: TimeInterval = (userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval) ?? .zero
                 
-                let keyboardOption: KeyboardOption = self.makeKeyboardOption(size: newSize, curve: curve, duration: duration)
+                let keyboardOption: KeyboardOption = self.makeKeyboardOption(size: size,
+                                                                             curve: curve,
+                                                                             duration: duration,
+                                                                             state: .didHide)
                 
                 self.didHide?(keyboardOption)
             }
@@ -120,10 +143,12 @@ public struct KeyboardModifier: ViewModifier {
     
     private func makeKeyboardOption(size keyboardSize: CGSize,
                                     curve animationCurve: Int,
-                                    duration keyboardAnimationDuration: TimeInterval) -> KeyboardOption {
+                                    duration keyboardAnimationDuration: TimeInterval,
+                                    state: KeyboardState = .none) -> KeyboardOption {
         return KeyboardOption(size: keyboardSize,
                               curve: animationCurve,
-                              duration: keyboardAnimationDuration)
+                              duration: keyboardAnimationDuration,
+                              state: state)
     }
 }
 

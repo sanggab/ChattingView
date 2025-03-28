@@ -40,7 +40,7 @@ public struct ChatContainerView<ContentView: View, ContentView2: View>: View {
     
     @ViewBuilder private var inputViewClosure: (() -> ContentView2)
     
-    @State private var keyboardHeight: CGFloat = 0
+    @State private var keyboardOption: KeyboardOption = .default
     @State private var inputHeight: CGFloat = 0
     
     public init(@ViewBuilder listViewClosure: @escaping () -> ContentView,
@@ -54,11 +54,9 @@ public struct ChatContainerView<ContentView: View, ContentView2: View>: View {
         
         VStack(spacing: 0) {
             ChattingCollectionView(viewBuilderClosure: {
-                Group {
-                    listViewClosure()
-                        .background(.blue)
-                }
-            }, keyboardHeight: keyboardHeight, inputHeight: inputHeight)
+                listViewClosure()
+                    .background(.blue)
+            }, keyboardOption: $keyboardOption, inputHeight: inputHeight)
             
             inputViewClosure()
                 .background {
@@ -70,11 +68,12 @@ public struct ChatContainerView<ContentView: View, ContentView2: View>: View {
         }
         .keyboardWillShow { option in
             print("상갑 logEvent \(#function) keyboardWillShow: \(option)")
-            keyboardHeight = option.size.height
+//            keyboardHeight = option.size.height
+            keyboardOption = option
         }
         .keyboardWillHide { option in
             print("상갑 logEvent \(#function) keyboardWillHide: \(option)")
-            keyboardHeight = .zero
+            keyboardOption = option
         }
         .onPreferenceChange(InputHeightKey.self) { inputHeight = $0 }
     }

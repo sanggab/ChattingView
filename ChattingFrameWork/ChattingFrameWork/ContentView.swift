@@ -17,9 +17,11 @@ struct ContentView: View {
     
     var body: some View {
         ChatContainerView {
-            listView
-            listView
-//            listView
+            LazyVStack(spacing: 0) {
+                listView
+                listView
+                listView
+            }
         } inputViewClosure: {
             TextView(text: $text)
                 .textViewConfiguration { textView in
@@ -48,46 +50,101 @@ struct ContentView: View {
                 .fill(.random)
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
+//                .onAppear {
+//                    print("random : \((1...100).randomElement())")
+//                }
+//                .onDisappear {
+//                    print("random : \((1...100).randomElement())")
+//                }
             
             Rectangle()
                 .fill(.random)
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
+//                .onAppear {
+//                    print("random : \((1...100).randomElement())")
+//                }
+//                .onDisappear {
+//                    print("random : \((1...100).randomElement())")
+//                }
+            
             
             Rectangle()
                 .fill(.random)
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
+//                .onAppear {
+//                    print("random : \((1...100).randomElement())")
+//                }
+//                .onDisappear {
+//                    print("random : \((1...100).randomElement())")
+//                }
             
             Rectangle()
                 .fill(.random)
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
+//                .onAppear {
+//                    print("random : \((1...100).randomElement())")
+//                }
+//                .onDisappear {
+//                    print("random : \((1...100).randomElement())")
+//                }
             
             Rectangle()
                 .fill(.random)
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
+//                .onAppear {
+//                    print("random : \((1...100).randomElement())")
+//                }
+//                .onDisappear {
+//                    print("random : \((1...100).randomElement())")
+//                }
             
             Rectangle()
                 .fill(.random)
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
+//                .onAppear {
+//                    print("random : \((1...100).randomElement())")
+//                }
+//                .onDisappear {
+//                    print("random : \((1...100).randomElement())")
+//                }
             
             Rectangle()
                 .fill(.random)
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
+//                .onAppear {
+//                    print("random : \((1...100).randomElement())")
+//                }
+//                .onDisappear {
+//                    print("random : \((1...100).randomElement())")
+//                }
             
             Rectangle()
                 .fill(.random)
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
+//                .onAppear {
+//                    print("random : \((1...100).randomElement())")
+//                }
+//                .onDisappear {
+//                    print("random : \((1...100).randomElement())")
+//                }
             
             Rectangle()
                 .fill(.random)
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
+//                .onAppear {
+//                    print("random : \((1...100).randomElement())")
+//                }
+//                .onDisappear {
+//                    print("random : \((1...100).randomElement())")
+//                }
         }
     }
 }
