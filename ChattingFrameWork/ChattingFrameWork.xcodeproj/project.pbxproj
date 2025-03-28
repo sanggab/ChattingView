@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EF0FD4D62D9242D900C842ED /* GabTextView in Frameworks */ = {isa = PBXBuildFile; productRef = EF0FD4D52D9242D900C842ED /* GabTextView */; };
 		EF0FD4D82D92451300C842ED /* GabTextView in Frameworks */ = {isa = PBXBuildFile; productRef = EF0FD4D72D92451300C842ED /* GabTextView */; };
+		EF5C54DD2D96879300FB5E11 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = EF5C54DC2D96879300FB5E11 /* ComposableArchitecture */; };
 		EF7AF5382D9225000094303B /* GabChatting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7AF5322D9225000094303B /* GabChatting.framework */; };
 		EF7AF5392D9225000094303B /* GabChatting.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EF7AF5322D9225000094303B /* GabChatting.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EF7AF5712D922C0C0094303B /* ChattingUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7AF5702D922C0C0094303B /* ChattingUtils.framework */; };
@@ -76,6 +77,7 @@
 			files = (
 				EF7AF5382D9225000094303B /* GabChatting.framework in Frameworks */,
 				EF0FD4D62D9242D900C842ED /* GabTextView in Frameworks */,
+				EF5C54DD2D96879300FB5E11 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +153,7 @@
 			name = ChattingFrameWork;
 			packageProductDependencies = (
 				EF0FD4D52D9242D900C842ED /* GabTextView */,
+				EF5C54DC2D96879300FB5E11 /* ComposableArchitecture */,
 			);
 			productName = ChattingFrameWork;
 			productReference = EF7AF5162D9224DF0094303B /* ChattingFrameWork.app */;
@@ -211,6 +214,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				EF0FD4D42D9242D900C842ED /* XCRemoteSwiftPackageReference "swiftui-textView" */,
+				EF5C54DB2D96879300FB5E11 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EF7AF5172D9224DF0094303B /* Products */;
@@ -559,6 +563,14 @@
 				minimumVersion = 2.4.0;
 			};
 		};
+		EF5C54DB2D96879300FB5E11 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.18.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -571,6 +583,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EF0FD4D42D9242D900C842ED /* XCRemoteSwiftPackageReference "swiftui-textView" */;
 			productName = GabTextView;
+		};
+		EF5C54DC2D96879300FB5E11 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF5C54DB2D96879300FB5E11 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

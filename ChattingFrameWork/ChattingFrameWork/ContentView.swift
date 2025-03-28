@@ -10,39 +10,51 @@ import SwiftUI
 import GabTextView
 import GabChatting
 
+import ComposableArchitecture
+
 struct ContentView: View {
     @State var text: String = ""
     @FocusState private var isFocused: Bool
     @State var inputViewHeight: CGFloat = 0
     
+    @Perception.Bindable var store: StoreOf<ChattingStore> = .init(initialState: ChattingStore.State()) {
+        ChattingStore()
+    }
+    
     var body: some View {
-        ChatContainerView {
-            LazyVStack(spacing: 0) {
-                listView
-                
-//                Text("hi")
-//                    .frame(height: 279)
-                listView
-                listView
+        let _ = Self._printChanges()
+        WithPerceptionTracking {
+            ChatContainerView {
+                LazyVStack(spacing: 0) {
+                    listView
+                    
+    //                Text("hi")
+    //                    .frame(height: 279)
+                    listView
+                    listView
+                }
+            } inputViewClosure: {
+                TextView(text: $text)
+                    .textViewConfiguration { textView in
+                        textView.textContainer.lineFragmentPadding = .zero
+                        textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+                        textView.backgroundColor = .white
+                    }
+                    .limitLine(3)
+                    .setTextViewAppearanceModel(.default)
+                    .receiveTextViewHeight { height in
+                        inputViewHeight = height
+                    }
+                    .overlayPlaceHolder(.leading) {
+                        Text("메시지를 입력해주세요.")
+                    }
+                    .frame(height: inputViewHeight)
+                    .frame(maxWidth: .infinity)
+                    .focused($isFocused)
             }
-        } inputViewClosure: {
-            TextView(text: $text)
-                .textViewConfiguration { textView in
-                    textView.textContainer.lineFragmentPadding = .zero
-                    textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-                    textView.backgroundColor = .white
-                }
-                .setTextViewAppearanceModel(.default)
-                .receiveTextViewHeight{ inputViewHeight = $0 }
-                .overlayPlaceHolder(.leading) {
-                    Text("메시지를 입력해주세요.")
-                }
-                .frame(height: inputViewHeight)
-                .frame(maxWidth: .infinity)
-                .focused($isFocused)
-        }
-        .onTapGesture {
-            isFocused.toggle()
+            .onTapGesture {
+                isFocused.toggle()
+            }
         }
     }
     

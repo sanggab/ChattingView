@@ -70,15 +70,8 @@ public struct ChatContainerView<ContentView: View, ContentView2: View>: View {
                     }
                 }
         }
-        .keyboardWillShow { option in
-            print("상갑 logEvent \(#function) keyboardWillShow: \(option)")
-//            keyboardHeight = option.size.height
-            keyboardOption = option
-        }
-        .keyboardWillHide { option in
-            print("상갑 logEvent \(#function) keyboardWillHide: \(option)")
-            keyboardOption = option
-        }
+        .keyboardWillShow { keyboardOption = $0 }
+        .keyboardWillHide { keyboardOption = $0 }
         .onPreferenceChange(InputHeightKey.self) { inputHeight = $0 }
     }
 }
