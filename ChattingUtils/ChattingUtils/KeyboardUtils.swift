@@ -9,6 +9,17 @@ import SwiftUI
 
 import Combine
 
+/// Keyboard의 옵션
+///
+/// ``KeyboardModifier``의 각종 modifier들의 Return 값
+///
+/// - Parameters:
+///     - size: 키보드 사이즈 (CGSize)
+///     - curve: 키보드 애니메이션 곡선 (Int)
+///     - duration: 키보드 애니메이션 시간 (TimeInterval)
+///     - state: 키보드 상태 값 (``KeyboardState``)
+///
+///  - Note: ``KeyboardOption/default``는 빈 값입니다.
 public struct KeyboardOption: Hashable {
     public let size: CGSize
     public let curve: Int
@@ -32,6 +43,11 @@ public struct KeyboardOption: Hashable {
 }
 
 extension KeyboardOption {
+    /// Keyboard의 Animation을 만드는 기능입니다.
+    ///
+    /// ``KeyboardOption/curve`` 와 ``KeyboardOption/duration``을 이용해서 Animation을 만듭니다.
+    ///
+    /// - returns: Animation
     public func makingCurveAnimation() -> Animation {
         let uikitCurve: UIView.AnimationCurve! = .init(rawValue: curve)
         
@@ -47,6 +63,14 @@ extension KeyboardOption {
     }
 }
 
+/// Keyboard의 State 값
+///
+/// - Parameters:
+///     - none: 상태가 변한 후의 값 - default
+///     - willShow: KeyboardWillShow
+///     - willHide: KeyboardWillHide
+///     - didShow: KeyboardDidShow
+///     - didHide: KeyboardDidHide
 @frozen
 public enum KeyboardState: Hashable {
     case none
@@ -58,6 +82,9 @@ public enum KeyboardState: Hashable {
     case didHide
 }
 
+/// Keyboard Modifier
+///
+/// Keyboard의 willShow, didShow, willHide, didHide의 변화에 따라 ``KeyboardOption`` 으로 키보드의 데이터를 알려주는 modifier
 public struct KeyboardModifier: ViewModifier {
     private let keyboardWillShow = NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
         .compactMap(\.userInfo)
@@ -153,18 +180,19 @@ public struct KeyboardModifier: ViewModifier {
 }
 
 public extension View {
+    /// Keyboard가 willShow일 때, ``KeyboardOption``을 던져줍니다.
     func keyboardWillShow(willShow: ((KeyboardOption) -> Void)? = nil) -> some View {
         modifier(KeyboardModifier(willShow: willShow))
     }
-    
+    /// Keyboard가 willHide일 때, ``KeyboardOption``을 던져줍니다.
     func keyboardWillHide(willHide: ((KeyboardOption) -> Void)? = nil) -> some View {
         modifier(KeyboardModifier(willHide: willHide))
     }
-    
+    /// Keyboard가 didShow일 때, ``KeyboardOption``을 던져줍니다.
     func keyboardDidShow(didShow: ((KeyboardOption) -> Void)? = nil) -> some View {
         modifier(KeyboardModifier(didShow: didShow))
     }
-    
+    /// Keyboard가 didHide일 때, ``KeyboardOption``을 던져줍니다.
     func keyboardDidHide(didHide: ((KeyboardOption) -> Void)? = nil) -> some View {
         modifier(KeyboardModifier(didHide: didHide))
     }

@@ -15,13 +15,16 @@ struct ChattingCollectionView<ContentView: View>: UIViewRepresentable {
     
     @Binding var keyboardOption: KeyboardOption
     let inputHeight: CGFloat
+    let safeAreaInsetBottom: CGFloat
     
     init(@ViewBuilder viewBuilderClosure: @escaping () -> ContentView,
          keyboardOption: Binding<KeyboardOption>,
-         inputHeight: CGFloat) {
+         inputHeight: CGFloat,
+         safeAreaInsetBottom: CGFloat) {
         self.viewBuilderClosure = viewBuilderClosure
         self._keyboardOption = keyboardOption
         self.inputHeight = inputHeight
+        self.safeAreaInsetBottom = safeAreaInsetBottom
     }
     
     func makeUIView(context: Context) -> UICollectionView {
@@ -49,31 +52,39 @@ struct ChattingCollectionView<ContentView: View>: UIViewRepresentable {
 }
 
 extension ChattingCollectionView {
+    /// Keyboard의 상태 변화에 따른 UICollectionView contentOffset 조절하는 기능
     func controlOffsetWithKeyboard(_ uiView: UICollectionView, context: Context) {
         switch keyboardOption.state {
-        case .willShow, .didShow:
+        case .willShow:
             isConditionWithKeyboardShow(uiView, context: context)
-        case .willHide, .didHide:
+        case .willHide:
             isConditionWithKeyboardHide(uiView, context: context)
+        case .didShow:
+            print("didShow")
+        case .didHide:
+            print("didHide")
         case .none:
             print("아무 처리 안함")
             break
         }
     }
-    
+    /// Keyboard가 올라올 때 처리를 하는 method
+    ///
+    /// Keyboard가 올라올 때, UICollectionView의 contentOffset.y을 조절해줍니다
+    ///
+    /// - Note: UICollectionView의 contentOffset.y의 위치에 따라 애니메이션이 다를 수 있습니다.
     private func isConditionWithKeyboardShow(_ uiView: UICollectionView, context: Context) {
-        print("상갑 logEvent \(#function) uiView.frame: \(uiView.frame)")
-        print("상갑 logEvent \(#function) keyboardOption: \(keyboardOption)")
-        print("상갑 logEvent \(#function) inputHeight: \(inputHeight)")
-        print("상갑 logEvent \(#function) contentoffset: \(uiView.contentOffset)")
-        print("상갑 logEvent \(#function) uiView.contentSize: \(uiView.contentSize)")
         let viewHeight: CGFloat = uiView.frame.height
         let contentHeight: CGFloat = uiView.contentSize.height
         let offsetY: CGFloat = uiView.contentOffset.y
         let keyboardHeight: CGFloat = keyboardOption.size.height
         var moveOffsetY: CGFloat = .zero
         
-        print("키보드 올라감")
+        print("상갑 logEvent \(#function) viewHeight: \(viewHeight)")
+        print("상갑 logEvent \(#function) keyboardOption: \(keyboardOption)")
+        print("상갑 logEvent \(#function) inputHeight: \(inputHeight)")
+        print("상갑 logEvent \(#function) contentHeight: \(contentHeight)")
+        print("상갑 logEvent \(#function) offsetY: \(offsetY)")
         
         if contentHeight > viewHeight {
             print("리스트가 더 많다")
@@ -83,10 +94,10 @@ extension ChattingCollectionView {
             
             if firstCondition <= offsetY {
                 print("바닥 이네?")
-                moveOffsetY = offsetY + (keyboardHeight - inputHeight)
+                moveOffsetY = offsetY + (keyboardHeight - safeAreaInsetBottom)
             } else {
                 print("바닥 아니네")
-                moveOffsetY = offsetY + keyboardHeight - inputHeight
+                moveOffsetY = offsetY + keyboardHeight - safeAreaInsetBottom
 //                    if firstCondition - offsetY < keyboardHeight {
 //                        print("키보드 높이만큼 아니다")
 ////                        moveOffsetY = offsetY + (firstCondition - offsetY)
@@ -99,7 +110,12 @@ extension ChattingCollectionView {
             
         } else {
             print("리스트가 더 적다")
-            moveOffsetY = viewHeight - contentHeight - keyboardHeight + inputHeight
+            moveOffsetY = abs(offsetY + (viewHeight - contentHeight - keyboardHeight + safeAreaInsetBottom))
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + keyboardOption.duration) {
+                uiView.setContentOffset(CGPoint(x: 0, y: moveOffsetY), animated: true)
+                uiView.layoutIfNeeded()
+            }
         }
         print("상갑 logEvent \(#function) moveOffsetY: \(moveOffsetY)")
         
@@ -118,9 +134,12 @@ extension ChattingCollectionView {
                 uiView.layoutIfNeeded()
             }
             
-            animtor.startAnimation(afterDelay: 0)
+            animtor.startAnimation()
         }
         
+        DispatchQueue.main.async {
+            self.keyboardOption.state = .none
+        }
     }
     
     private func isConditionWithKeyboardHide(_ uiView: UICollectionView, context: Context) {
@@ -134,15 +153,38 @@ extension ChattingCollectionView {
         let offsetY: CGFloat = uiView.contentOffset.y
         let keyboardHeight: CGFloat = keyboardOption.size.height
         var moveOffsetY: CGFloat = .zero
-//        if contentHeight > viewHeight {
-//            print("오잉")
-//            DispatchQueue.main.asyncAfter(deadline: .now()) {
-//                let moveOffsetY: CGFloat = offsetY - (keyboardHeight - inputHeight)
-//                print("상갑 logEvent \(#function) moveOffsetY: \(moveOffsetY)")
-//                uiView.setContentOffset(CGPoint(x: 0, y: moveOffsetY), animated: true)
-//            }
-//        } else {
-//
-//        }
+        let intriHeight: CGFloat = contentHeight - viewHeight
+        let realHeight: CGFloat = viewHeight + keyboardHeight - safeAreaInsetBottom
+        print("상갑 logEvent \(#function) realHeight: \(realHeight)")
+        print("상갑 logEvent \(#function) intriHeight: \(intriHeight)")
+        
+        if realHeight < contentHeight {
+            print("리스트가 더 많아서 움직여야한다")
+            
+            let new = keyboardHeight - safeAreaInsetBottom
+            if new > offsetY {
+                print("상단 근처라서 안 움직여줘도됨")
+            } else {
+                moveOffsetY = offsetY - (keyboardHeight - safeAreaInsetBottom)
+                
+                let curve = UIView.AnimationCurve(rawValue: keyboardOption.curve)!
+                let animtor = UIViewPropertyAnimator(duration: keyboardOption.duration, curve: curve)
+                
+                animtor.addAnimations {
+                    uiView.setContentOffset(CGPoint(x: 0, y: moveOffsetY), animated: false)
+                    
+                    uiView.layoutIfNeeded()
+                }
+                
+                animtor.startAnimation()
+            }
+            
+        } else {
+            print("리스트가 적어서 아무처리 x")
+        }
+        
+        DispatchQueue.main.async {
+            self.keyboardOption.state = .none
+        }
     }
 }

@@ -42,6 +42,7 @@ public struct ChatContainerView<ContentView: View, ContentView2: View>: View {
     
     @State private var keyboardOption: KeyboardOption = .default
     @State private var inputHeight: CGFloat = 0
+    @State private var safeInsetBottom: CGFloat = 0
     
     public init(@ViewBuilder listViewClosure: @escaping () -> ContentView,
                 @ViewBuilder inputViewClosure: @escaping () -> ContentView2) {
@@ -56,13 +57,16 @@ public struct ChatContainerView<ContentView: View, ContentView2: View>: View {
             ChattingCollectionView(viewBuilderClosure: {
                 listViewClosure()
                     .background(.blue)
-            }, keyboardOption: $keyboardOption, inputHeight: inputHeight)
+            }, keyboardOption: $keyboardOption, inputHeight: inputHeight, safeAreaInsetBottom: safeInsetBottom)
             
             inputViewClosure()
                 .background {
                     GeometryReader { proxy in
                         Color.clear
                             .preference(key: InputHeightKey.self, value: proxy.size.height)
+                            .onAppear {
+                                self.safeInsetBottom = proxy.safeAreaInsets.bottom
+                            }
                     }
                 }
         }

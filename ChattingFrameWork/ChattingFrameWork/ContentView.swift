@@ -19,6 +19,9 @@ struct ContentView: View {
         ChatContainerView {
             LazyVStack(spacing: 0) {
                 listView
+                
+//                Text("hi")
+//                    .frame(height: 279)
                 listView
                 listView
             }
