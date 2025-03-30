@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4BA1EBAB2D994C1F00F1454A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4BA1EBAA2D994C1F00F1454A /* Kingfisher */; };
 		EF0FD4D62D9242D900C842ED /* GabTextView in Frameworks */ = {isa = PBXBuildFile; productRef = EF0FD4D52D9242D900C842ED /* GabTextView */; };
 		EF0FD4D82D92451300C842ED /* GabTextView in Frameworks */ = {isa = PBXBuildFile; productRef = EF0FD4D72D92451300C842ED /* GabTextView */; };
 		EF5C54DD2D96879300FB5E11 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = EF5C54DC2D96879300FB5E11 /* ComposableArchitecture */; };
@@ -75,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BA1EBAB2D994C1F00F1454A /* Kingfisher in Frameworks */,
 				EF7AF5382D9225000094303B /* GabChatting.framework in Frameworks */,
 				EF0FD4D62D9242D900C842ED /* GabTextView in Frameworks */,
 				EF5C54DD2D96879300FB5E11 /* ComposableArchitecture in Frameworks */,
@@ -154,6 +156,7 @@
 			packageProductDependencies = (
 				EF0FD4D52D9242D900C842ED /* GabTextView */,
 				EF5C54DC2D96879300FB5E11 /* ComposableArchitecture */,
+				4BA1EBAA2D994C1F00F1454A /* Kingfisher */,
 			);
 			productName = ChattingFrameWork;
 			productReference = EF7AF5162D9224DF0094303B /* ChattingFrameWork.app */;
@@ -215,6 +218,7 @@
 			packageReferences = (
 				EF0FD4D42D9242D900C842ED /* XCRemoteSwiftPackageReference "swiftui-textView" */,
 				EF5C54DB2D96879300FB5E11 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				4BA1EBA92D994C1F00F1454A /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EF7AF5172D9224DF0094303B /* Products */;
@@ -555,6 +559,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4BA1EBA92D994C1F00F1454A /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.3.1;
+			};
+		};
 		EF0FD4D42D9242D900C842ED /* XCRemoteSwiftPackageReference "swiftui-textView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sanggab/swiftui-textView.git";
@@ -574,6 +586,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4BA1EBAA2D994C1F00F1454A /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BA1EBA92D994C1F00F1454A /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		EF0FD4D52D9242D900C842ED /* GabTextView */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EF0FD4D42D9242D900C842ED /* XCRemoteSwiftPackageReference "swiftui-textView" */;

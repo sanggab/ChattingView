@@ -10,6 +10,7 @@ import SwiftUI
 import GabTextView
 import GabChatting
 
+import Kingfisher
 import ComposableArchitecture
 
 struct ContentView: View {
@@ -24,36 +25,59 @@ struct ContentView: View {
     var body: some View {
         let _ = Self._printChanges()
         WithPerceptionTracking {
-            ChatContainerView {
-                LazyVStack(spacing: 0) {
-                    listView
+            VStack(spacing: 0) {
+                HStack {
+                    Rectangle()
+                        .fill(.pink.opacity(0.8))
+                        .frame(height: 40)
+                        .onTapGesture {
+                            store.send(.appendRandomList)
+                        }
                     
-    //                Text("hi")
-    //                    .frame(height: 279)
-                    listView
-                    listView
+                    Rectangle()
+                        .fill(.pink.opacity(0.8))
+                        .frame(height: 40)
+                        .onTapGesture {
+                            
+                        }
                 }
-            } inputViewClosure: {
-                TextView(text: $text)
-                    .textViewConfiguration { textView in
-                        textView.textContainer.lineFragmentPadding = .zero
-                        textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-                        textView.backgroundColor = .white
+                
+                ChatContainerView {
+                    LazyVStack(spacing: 0) {
+                        ForEach(store.list) { chatModel in
+                            KFImage(URL(string: chatModel.imgUrl ?? ""))
+                                .resizable()
+                                .frame(width: 300, height: 300)
+                        }
                     }
-                    .limitLine(3)
-                    .setTextViewAppearanceModel(.default)
-                    .receiveTextViewHeight { height in
-                        inputViewHeight = height
-                    }
-                    .overlayPlaceHolder(.leading) {
-                        Text("메시지를 입력해주세요.")
-                    }
-                    .frame(height: inputViewHeight)
-                    .frame(maxWidth: .infinity)
-                    .focused($isFocused)
+                } inputViewClosure: {
+                    TextView(text: $text)
+                        .textViewConfiguration { textView in
+                            textView.textContainer.lineFragmentPadding = .zero
+                            textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+                            textView.backgroundColor = .white
+                        }
+                        .limitLine(3)
+                        .setTextViewAppearanceModel(.default)
+                        .receiveTextViewHeight { height in
+                            inputViewHeight = height
+                        }
+                        .overlayPlaceHolder(.leading) {
+                            Text("메시지를 입력해주세요.")
+                        }
+                        .frame(height: inputViewHeight)
+                        .frame(maxWidth: .infinity)
+                        .focused($isFocused)
+                }
+                .onTapGesture {
+                    isFocused.toggle()
+                }
+                .task {
+                    store.send(.onAppear)
+                }
             }
-            .onTapGesture {
-                isFocused.toggle()
+            .onChange(of: store.list) { newValue in
+                print("\(#function) newValue: \(newValue)")
             }
         }
     }

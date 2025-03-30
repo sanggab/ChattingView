@@ -41,6 +41,7 @@ public struct ChatContainerView<ContentView: View, ContentView2: View>: View {
     @ViewBuilder private var inputViewClosure: (() -> ContentView2)
     
     @State private var keyboardOption: KeyboardOption = .default
+    @State private var updateState: ChattingState = .onAppear
     @State private var inputHeight: CGFloat = 0
     @State private var safeInsetBottom: CGFloat = 0
     

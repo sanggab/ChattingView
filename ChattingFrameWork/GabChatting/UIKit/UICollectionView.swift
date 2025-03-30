@@ -9,13 +9,21 @@ import SwiftUI
 
 import ChattingUtils
 
-enum ChattingState: Equatable {
+public enum ChattingState: Equatable {
+    /// 맨 처음 시작 시
     case onAppear
+    /// 작업 대기중
     case waiting
+    /// 키보드 상태변화
     case keyboard
-//    case keyboardShow
-//    case keyboardHide
+    /// 채팅입력 상태
     case textInput
+    /// Cell 재구성
+    case reconfigure
+    /// 재로드
+    case reload
+    /// 새로고침
+    case refresh
 }
 
 struct ChattingCollectionView<ContentView: View>: UIViewRepresentable {
@@ -25,8 +33,6 @@ struct ChattingCollectionView<ContentView: View>: UIViewRepresentable {
     @Binding var keyboardOption: KeyboardOption
     let inputHeight: CGFloat
     let safeAreaInsetBottom: CGFloat
-    
-    @State private var chattingState: ChattingState = .onAppear
     
     @State var updateState: ChattingState = .onAppear
     @State var previousInputHeight: CGFloat = 0
@@ -60,6 +66,7 @@ struct ChattingCollectionView<ContentView: View>: UIViewRepresentable {
     func updateUIView(_ uiView: UICollectionView, context: Context) {
         print("\(#function) updateState: \(self.updateState)")
         self.conditionUpdateType(uiView, context: context)
+        self.dataInput(uiView, context: context)
     }
     
     func makeCoordinator() -> ChattingCoordinator<ContentView> {
@@ -75,9 +82,35 @@ extension ChattingCollectionView {
         case .waiting:
             self.waitingAction()
         case .textInput:
-            self.textInputAction(uiView, context: context)
+            self.textInputAction(uiView)
         case .keyboard:
-            self.controlOffsetWithKeyboard(uiView, context: context)
+            self.controlOffsetWithKeyboard(uiView)
+        case .reconfigure:
+            self.reconfigureAction(uiView, context: context)
+        case .reload:
+            self.reloadAction(uiView, context: context)
+        case .refresh:
+            context.coordinator.reconfigureItems()
+        default:
+            break
         }
+    }
+    
+    func dataInput(_ uiView: UICollectionView, context: Context) {
+        
+    }
+}
+
+extension ChattingCollectionView {
+    func reconfiguration(_ state: Bool) -> ChattingCollectionView {
+        let view: ChattingCollectionView = self
+        if state { view.updateState = .reconfigure }
+        return view
+    }
+    
+    func reload(_ state: Bool) -> ChattingCollectionView {
+        let view: ChattingCollectionView = self
+        if state { view.updateState = .reload }
+        return view
     }
 }
