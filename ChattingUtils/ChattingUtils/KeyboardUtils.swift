@@ -82,6 +82,20 @@ public enum KeyboardState: Hashable {
     case didHide
 }
 
+public extension KeyboardState {
+    /// 키보드가 보여질려고 하거나 키보드가 보여지는 여부를 확인하는 값
+    ///
+    /// - returns: Bool
+    var isShowing: Bool {
+        switch self {
+        case .willShow, .didShow:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 /// Keyboard Modifier
 ///
 /// Keyboard의 willShow, didShow, willHide, didHide의 변화에 따라 ``KeyboardOption`` 으로 키보드의 데이터를 알려주는 modifier
