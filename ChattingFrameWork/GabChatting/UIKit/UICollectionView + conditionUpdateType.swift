@@ -146,20 +146,20 @@ extension ChattingCollectionView {
 extension ChattingCollectionView {
     func reloadAction(_ uiView: UICollectionView, context: Context) {
         print("\(#function)")
-        context.coordinator.reloadData()
+//        context.coordinator.reloadData()
     }
 }
 
 extension ChattingCollectionView {
     func reconfigureAction(_ uiView: UICollectionView, context: Context) {
         print("\(#function)")
-        context.coordinator.reconfigureItems()
+//        context.coordinator.reconfigureItems()
     }
 }
 
 extension ChattingCollectionView {
     func refreshAction(_ uiView: UICollectionView, context: Context) {
         print("\(#function)")
-        context.coordinator.reconfigureItems()
+//        context.coordinator.reconfigureItems()
     }
 }

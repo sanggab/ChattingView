@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+import Core
 import GabTextView
 import GabChatting
 
@@ -14,10 +15,6 @@ import Kingfisher
 import ComposableArchitecture
 
 struct ContentView: View {
-    @State var text: String = ""
-    @FocusState private var isFocused: Bool
-    @State var inputViewHeight: CGFloat = 0
-    
     @Perception.Bindable var store: StoreOf<ChattingStore> = .init(initialState: ChattingStore.State()) {
         ChattingStore()
     }
@@ -43,41 +40,16 @@ struct ContentView: View {
                 }
                 
                 ChatContainerView {
-                    LazyVStack(spacing: 0) {
-                        ForEach(store.list) { chatModel in
-                            KFImage(URL(string: chatModel.imgUrl ?? ""))
-                                .resizable()
-                                .frame(width: 300, height: 300)
-                        }
-                    }
+                    ListView(store: store)
                 } inputViewClosure: {
-                    TextView(text: $text)
-                        .textViewConfiguration { textView in
-                            textView.textContainer.lineFragmentPadding = .zero
-                            textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-                            textView.backgroundColor = .white
-                        }
-                        .limitLine(3)
-                        .setTextViewAppearanceModel(.default)
-                        .receiveTextViewHeight { height in
-                            inputViewHeight = height
-                        }
-                        .overlayPlaceHolder(.leading) {
-                            Text("메시지를 입력해주세요.")
-                        }
-                        .frame(height: inputViewHeight)
-                        .frame(maxWidth: .infinity)
-                        .focused($isFocused)
+                    InputView(store: store)
                 }
                 .onTapGesture {
-                    isFocused.toggle()
+                    store.send(.updateIsFocused(false))
                 }
                 .task {
                     store.send(.onAppear)
                 }
-            }
-            .onChange(of: store.list) { newValue in
-                print("\(#function) newValue: \(newValue)")
             }
         }
     }

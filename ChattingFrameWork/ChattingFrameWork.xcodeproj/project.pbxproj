@@ -15,6 +15,8 @@
 		EF7AF5392D9225000094303B /* GabChatting.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EF7AF5322D9225000094303B /* GabChatting.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EF7AF5712D922C0C0094303B /* ChattingUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7AF5702D922C0C0094303B /* ChattingUtils.framework */; };
 		EF7AF5722D922C0C0094303B /* ChattingUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EF7AF5702D922C0C0094303B /* ChattingUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EFE44B8D2D9A0D17007C608F /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFE44B8C2D9A0D17007C608F /* Core.framework */; };
+		EFE44B8E2D9A0D17007C608F /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EFE44B8C2D9A0D17007C608F /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				EF7AF5392D9225000094303B /* GabChatting.framework in Embed Frameworks */,
+				EFE44B8E2D9A0D17007C608F /* Core.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,6 +59,7 @@
 		EF7AF5162D9224DF0094303B /* ChattingFrameWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChattingFrameWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF7AF5322D9225000094303B /* GabChatting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GabChatting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF7AF5702D922C0C0094303B /* ChattingUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ChattingUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFE44B8C2D9A0D17007C608F /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -79,6 +83,7 @@
 				4BA1EBAB2D994C1F00F1454A /* Kingfisher in Frameworks */,
 				EF7AF5382D9225000094303B /* GabChatting.framework in Frameworks */,
 				EF0FD4D62D9242D900C842ED /* GabTextView in Frameworks */,
+				EFE44B8D2D9A0D17007C608F /* Core.framework in Frameworks */,
 				EF5C54DD2D96879300FB5E11 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,6 +122,7 @@
 		EF7AF56F2D922C0C0094303B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EFE44B8C2D9A0D17007C608F /* Core.framework */,
 				EF7AF5702D922C0C0094303B /* ChattingUtils.framework */,
 			);
 			name = Frameworks;

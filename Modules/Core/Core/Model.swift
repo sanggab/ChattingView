@@ -6,22 +6,22 @@
 //
 
 import Foundation
-
+@frozen
 public enum ChatSection: Int, Equatable {
     case main = 0
 }
-
+@frozen
 public enum ChatType: CaseIterable, Equatable {
     case text
     case img
     case delete
 }
-
+@frozen
 public enum SendType: CaseIterable, Equatable {
     case send
     case receive
 }
-
+@frozen
 public enum UpdateType: CaseIterable, Equatable {
     case none
     case reload
