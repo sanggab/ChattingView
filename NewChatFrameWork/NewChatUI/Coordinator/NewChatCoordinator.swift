@@ -1,19 +1,21 @@
 //
-//  Coordinator.swift
-//  GabChatting
+//  NewChatCoordinator.swift
+//  NewChatUI
 //
-//  Created by Gab on 3/25/25.
+//  Created by Gab on 3/31/25.
 //
 
 import SwiftUI
 
-public final class ChattingCoordinator<ContentView: View>: NSObject, UICollectionViewDelegate {
+import Core
+
+public final class NewChatCoordinator<ContentView: View, NewChatListModel: Hashable>: NSObject, UICollectionViewDelegate {
     
-    var viewBuilderClosure: () -> ContentView
+    var viewBuilderClosure: (NewChatListModel) -> ContentView
     
-    var dataSource: UICollectionViewDiffableDataSource<ChattingSection, DummyItemModel>!
+    var dataSource: UICollectionViewDiffableDataSource<ChatSection, NewChatListModel>!
     
-    public init(viewBuilderClosure: @escaping () -> ContentView) {
+    public init(viewBuilderClosure: @escaping (NewChatListModel) -> ContentView) {
         self.viewBuilderClosure = viewBuilderClosure
     }
     
@@ -41,12 +43,12 @@ public final class ChattingCoordinator<ContentView: View>: NSObject, UICollectio
     
     public func setDataSource(view: UICollectionView) {
         print("상갑 logEvent \(#function)")
-        self.dataSource = UICollectionViewDiffableDataSource<ChattingSection, DummyItemModel>(collectionView: view, cellProvider: { collectionView, indexPath, itemIdentifier in
+        self.dataSource = UICollectionViewDiffableDataSource<ChatSection, NewChatListModel>(collectionView: view, cellProvider: { collectionView, indexPath, NewChatListModel in
             print("상갑 logEvent \(#function) indexPath: \(indexPath)")
             let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "chatcell", for: indexPath)
             
             cell.contentConfiguration = UIHostingConfiguration {
-                self.viewBuilderClosure()
+                self.viewBuilderClosure(NewChatListModel)
             }
             .minSize(width: 0, height: 0)
             .margins(.all, 0)
@@ -55,30 +57,47 @@ public final class ChattingCoordinator<ContentView: View>: NSObject, UICollectio
         })
     }
     
-    public func setData() {
-        var snapShot: NSDiffableDataSourceSnapshot<ChattingSection, DummyItemModel> = .init()
+    public func setData(item: [NewChatListModel]) {
+        print("상갑 logEvent \(#function) item: \(item)")
+        var snapShot: NSDiffableDataSourceSnapshot<ChatSection, NewChatListModel> = .init()
         
         snapShot.appendSections([.main])
         
-        snapShot.appendItems([.init()], toSection: .main)
+        snapShot.appendItems(item, toSection: .main)
         
         self.dataSource.apply(snapShot)
     }
     
+    public func appendItem(item: [NewChatListModel]) {
+        print("상갑 logEvent \(#function) item \(item)")
+        var snapShot = self.dataSource.snapshot()
+        
+        snapShot.appendItems(item, toSection: .main)
+        
+        self.dataSource.applySnapshotUsingReloadData(snapShot)
+    }
+    
     public func reloadData() {
-        var snapShot: NSDiffableDataSourceSnapshot<ChattingSection, DummyItemModel> = self.dataSource.snapshot()
+        var snapShot: NSDiffableDataSourceSnapshot<ChatSection, NewChatListModel> = self.dataSource.snapshot()
         snapShot.reloadItems(snapShot.itemIdentifiers)
         self.dataSource.applySnapshotUsingReloadData(snapShot)
     }
     
     public func reconfigureItems() {
-        DispatchQueue.main.async {
-            var snapShot: NSDiffableDataSourceSnapshot<ChattingSection, DummyItemModel> = self.dataSource.snapshot()
-            snapShot.reconfigureItems(snapShot.itemIdentifiers)
-            UIView.performWithoutAnimation {
-                self.dataSource.apply(snapShot, animatingDifferences: false)
-            }
-        }
+        var snapShot = self.dataSource.snapshot()
+        snapShot.reconfigureItems(snapShot.itemIdentifiers)
+        
+        self.dataSource.apply(snapShot, animatingDifferences: false)
+    }
+    
+    public func newItem(item: [NewChatListModel]) {
+        var snapShot = self.dataSource.snapshot()
+        let previousItem = snapShot.itemIdentifiers
+        
+        snapShot.deleteItems(previousItem)
+        snapShot.appendItems(item)
+        
+        self.dataSource.apply(snapShot, animatingDifferences: false)
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {

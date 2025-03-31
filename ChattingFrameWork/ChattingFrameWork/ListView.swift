@@ -29,6 +29,7 @@ struct ListView: View {
                             }
                     case .img:
                         KFImage(URL(string: chatModel.imgUrl ?? ""))
+                            .cacheMemoryOnly()
                             .resizable()
                             .frame(width: 300, height: 300)
                             .onAppear {
@@ -41,6 +42,9 @@ struct ListView: View {
                             }
                     }
                 }
+            }
+            .onChange(of: store.list) { newValue in
+                print("상갑 logEvent \(#function) store.list: \(newValue)")
             }
         }
     }

@@ -58,7 +58,7 @@ public struct ChatContainerView<ContentView: View, ContentView2: View>: View {
             ChattingCollectionView(viewBuilderClosure: {
                 listViewClosure()
                     .background(.blue)
-            }, keyboardOption: $keyboardOption, inputHeight: inputHeight, safeAreaInsetBottom: safeInsetBottom)
+            }, keyboardOption: $keyboardOption, updateState: $updateState, inputHeight: inputHeight, safeAreaInsetBottom: safeInsetBottom)
             
             inputViewClosure()
                 .background {

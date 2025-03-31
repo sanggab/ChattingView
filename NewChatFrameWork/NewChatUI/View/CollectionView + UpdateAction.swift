@@ -1,14 +1,14 @@
 //
-//  UICollectionView + conditionUpdateType.swift
-//  GabChatting
+//  CollectionView + UpdateAction.swift
+//  NewChatUI
 //
-//  Created by 심상갑 on 3/30/25.
+//  Created by Gab on 3/31/25.
 //
 
 import SwiftUI
 
 // MARK: - onAppear
-extension ChattingCollectionView {
+extension ChattingView {
     /// onAppear State일 때 처리하는 기능 모음
     func onAppearAction(_ uiView: UICollectionView, context: Context) {
         let size: CGSize = uiView.frame.size
@@ -23,7 +23,7 @@ extension ChattingCollectionView {
     }
 }
 // MARK: - waiting
-extension ChattingCollectionView {
+extension ChattingView {
     /// waiting State일 때 처리하는 기능 모음
     func waitingAction() {
         if self.keyboardOption.state != .none {
@@ -34,7 +34,7 @@ extension ChattingCollectionView {
     }
 }
 // MARK: - textInput
-extension ChattingCollectionView {
+extension ChattingView {
     /// textInput State일 떄 처리하는 기능 모음
     func textInputAction(_ uiView: UICollectionView) {
         if self.keyboardOption.state == .willHide || self.keyboardOption.state == .didHide {
@@ -89,7 +89,7 @@ extension ChattingCollectionView {
     }
 }
 // MARK: - keyboard
-extension ChattingCollectionView {
+extension ChattingView {
     /// Keyboard의 상태 변화에 따른 UICollectionView contentOffset 조절하는 기능
     func controlOffsetWithKeyboard(_ uiView: UICollectionView) {
         switch self.keyboardOption.state {
@@ -139,21 +139,17 @@ extension ChattingCollectionView {
     }
 }
 
-extension ChattingCollectionView {
+extension ChattingView {
     func reloadAction(_ uiView: UICollectionView, context: Context) {
         print("\(#function)")
-        context.coordinator.reloadData()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            print("!!!!!")
-            uiView.scrollToItem(at: IndexPath(item: 0, section: 0),
-                                at: .bottom,
-                                animated: false)
+        context.coordinator.appendItem(item: self.chatList)
+        DispatchQueue.main.async {
             self.updateState = .waiting
         }
     }
 }
 
-extension ChattingCollectionView {
+extension ChattingView {
     func reconfigureAction(_ uiView: UICollectionView, context: Context) {
         print("\(#function)")
         context.coordinator.reconfigureItems()
@@ -164,12 +160,26 @@ extension ChattingCollectionView {
     }
 }
 
-extension ChattingCollectionView {
+extension ChattingView {
     func refreshAction(_ uiView: UICollectionView, context: Context) {
         print("\(#function)")
         context.coordinator.reconfigureItems()
         DispatchQueue.main.async {
             self.updateState = .waiting
         }
+    }
+}
+
+extension ChattingView {
+    func testAction(_ uiView: UICollectionView, context: Context) {
+        print("상갑 logEvent \(#function)")
+        context.coordinator.newItem(item: self.chatList)
+        uiView.scrollToItem(at: IndexPath(item: self.chatList.count - 1, section: 0), at: .bottom, animated: true)
+    }
+}
+
+extension ChattingView {
+    func test2Action(_ uiView: UICollectionView, context: Context) {
+        print("상갑 logEvent \(#function)")
     }
 }

@@ -38,6 +38,7 @@ struct InputView: View {
                 }
                 .frame(height: inputViewHeight)
                 .frame(maxWidth: .infinity)
+                .focused($isFocused)
                 .bind($store.isFocused.sending(\.updateIsFocused), to: $isFocused)
         }
     }

@@ -17,6 +17,10 @@
 		EF7AF5722D922C0C0094303B /* ChattingUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EF7AF5702D922C0C0094303B /* ChattingUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EFE44B8D2D9A0D17007C608F /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFE44B8C2D9A0D17007C608F /* Core.framework */; };
 		EFE44B8E2D9A0D17007C608F /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EFE44B8C2D9A0D17007C608F /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EFE44BD02D9A4F2E007C608F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EFE44BCF2D9A4F2E007C608F /* SnapKit */; };
+		EFE44BD22D9A4F38007C608F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EFE44BD12D9A4F38007C608F /* SnapKit */; };
+		EFE44BD52D9A4F4B007C608F /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = EFE44BD42D9A4F4B007C608F /* Then */; };
+		EFE44BD72D9A4F52007C608F /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = EFE44BD62D9A4F52007C608F /* Then */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +87,8 @@
 				4BA1EBAB2D994C1F00F1454A /* Kingfisher in Frameworks */,
 				EF7AF5382D9225000094303B /* GabChatting.framework in Frameworks */,
 				EF0FD4D62D9242D900C842ED /* GabTextView in Frameworks */,
+				EFE44BD52D9A4F4B007C608F /* Then in Frameworks */,
+				EFE44BD02D9A4F2E007C608F /* SnapKit in Frameworks */,
 				EFE44B8D2D9A0D17007C608F /* Core.framework in Frameworks */,
 				EF5C54DD2D96879300FB5E11 /* ComposableArchitecture in Frameworks */,
 			);
@@ -92,8 +98,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFE44BD22D9A4F38007C608F /* SnapKit in Frameworks */,
 				EF7AF5712D922C0C0094303B /* ChattingUtils.framework in Frameworks */,
 				EF0FD4D82D92451300C842ED /* GabTextView in Frameworks */,
+				EFE44BD72D9A4F52007C608F /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +171,8 @@
 				EF0FD4D52D9242D900C842ED /* GabTextView */,
 				EF5C54DC2D96879300FB5E11 /* ComposableArchitecture */,
 				4BA1EBAA2D994C1F00F1454A /* Kingfisher */,
+				EFE44BCF2D9A4F2E007C608F /* SnapKit */,
+				EFE44BD42D9A4F4B007C608F /* Then */,
 			);
 			productName = ChattingFrameWork;
 			productReference = EF7AF5162D9224DF0094303B /* ChattingFrameWork.app */;
@@ -188,6 +198,8 @@
 			name = GabChatting;
 			packageProductDependencies = (
 				EF0FD4D72D92451300C842ED /* GabTextView */,
+				EFE44BD12D9A4F38007C608F /* SnapKit */,
+				EFE44BD62D9A4F52007C608F /* Then */,
 			);
 			productName = GabChatting;
 			productReference = EF7AF5322D9225000094303B /* GabChatting.framework */;
@@ -225,6 +237,8 @@
 				EF0FD4D42D9242D900C842ED /* XCRemoteSwiftPackageReference "swiftui-textView" */,
 				EF5C54DB2D96879300FB5E11 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				4BA1EBA92D994C1F00F1454A /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				EFE44BCE2D9A4F2E007C608F /* XCRemoteSwiftPackageReference "SnapKit" */,
+				EFE44BD32D9A4F4B007C608F /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EF7AF5172D9224DF0094303B /* Products */;
@@ -589,6 +603,22 @@
 				minimumVersion = 1.18.0;
 			};
 		};
+		EFE44BCE2D9A4F2E007C608F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		EFE44BD32D9A4F4B007C608F /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -611,6 +641,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EF5C54DB2D96879300FB5E11 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
+		};
+		EFE44BCF2D9A4F2E007C608F /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFE44BCE2D9A4F2E007C608F /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		EFE44BD12D9A4F38007C608F /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFE44BCE2D9A4F2E007C608F /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		EFE44BD42D9A4F4B007C608F /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFE44BD32D9A4F4B007C608F /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		EFE44BD62D9A4F52007C608F /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFE44BD32D9A4F4B007C608F /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

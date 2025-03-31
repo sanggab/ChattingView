@@ -61,6 +61,9 @@
 		4BDCAC282D7C5FF300F866ED /* Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Core.xcodeproj; path = Core/Core.xcodeproj; sourceTree = "<group>"; };
 		EF7AF5272D9224E10094303B /* ChattingFrameWork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ChattingFrameWork.xcodeproj; path = ChattingFrameWork/ChattingFrameWork.xcodeproj; sourceTree = SOURCE_ROOT; };
 		EF7AF5622D922B9A0094303B /* ChattingUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ChattingUtils.xcodeproj; path = ChattingUtils/ChattingUtils.xcodeproj; sourceTree = SOURCE_ROOT; };
+		EFE44BAF2D9A269E007C608F /* TestChatView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestChatView.xcodeproj; path = TestChatView/TestChatView.xcodeproj; sourceTree = SOURCE_ROOT; };
+		EFE44BF22D9A4FEB007C608F /* RepresentableChatting.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RepresentableChatting.xcodeproj; path = RepresentableChatting/RepresentableChatting.xcodeproj; sourceTree = SOURCE_ROOT; };
+		EFE44C122D9A5001007C608F /* NewChatFrameWork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NewChatFrameWork.xcodeproj; path = NewChatFrameWork/NewChatFrameWork.xcodeproj; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -149,6 +152,9 @@
 		4BDCABFD2D7C5FC600F866ED /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				EFE44C122D9A5001007C608F /* NewChatFrameWork.xcodeproj */,
+				EFE44BF22D9A4FEB007C608F /* RepresentableChatting.xcodeproj */,
+				EFE44BAF2D9A269E007C608F /* TestChatView.xcodeproj */,
 				EF7AF5622D922B9A0094303B /* ChattingUtils.xcodeproj */,
 				EF7AF5272D9224E10094303B /* ChattingFrameWork.xcodeproj */,
 				4B9166642D8EDD8000AC520C /* InnovationChatView.xcodeproj */,
@@ -181,6 +187,27 @@
 			sourceTree = "<group>";
 		};
 		EF7AF5632D922B9A0094303B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EFE44BB02D9A269E007C608F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EFE44BF32D9A4FEB007C608F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EFE44C132D9A5001007C608F /* Products */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -322,6 +349,18 @@
 				{
 					ProductGroup = 4B9166452D8EDACF00AC520C /* Products */;
 					ProjectRef = 4B9166442D8EDACF00AC520C /* KeyBoardTestApp.xcodeproj */;
+				},
+				{
+					ProductGroup = EFE44C132D9A5001007C608F /* Products */;
+					ProjectRef = EFE44C122D9A5001007C608F /* NewChatFrameWork.xcodeproj */;
+				},
+				{
+					ProductGroup = EFE44BF32D9A4FEB007C608F /* Products */;
+					ProjectRef = EFE44BF22D9A4FEB007C608F /* RepresentableChatting.xcodeproj */;
+				},
+				{
+					ProductGroup = EFE44BB02D9A269E007C608F /* Products */;
+					ProjectRef = EFE44BAF2D9A269E007C608F /* TestChatView.xcodeproj */;
 				},
 			);
 			projectRoot = "";
