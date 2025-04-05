@@ -13,8 +13,7 @@ extension ChattingView {
     func onAppearAction(_ uiView: UICollectionView, context: Context) {
         let size: CGSize = uiView.frame.size
         let contentSize: CGSize = uiView.contentSize
-        print("\(#function) size: \(size)")
-        print("\(#function) contentSize: \(contentSize)")
+        
         if size.height != .zero && contentSize.height != .zero && self.updateState == .onAppear {
             DispatchQueue.main.async {
                 self.updateState = .waiting

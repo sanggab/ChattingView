@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4B726C152DA1681A006108C4 /* GabTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 4B726C142DA1681A006108C4 /* GabTextView */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		EF7AF5572D922B9A0094303B /* ChattingUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ChattingUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B726C152DA1681A006108C4 /* GabTextView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +81,7 @@
 			);
 			name = ChattingUtils;
 			packageProductDependencies = (
+				4B726C142DA1681A006108C4 /* GabTextView */,
 			);
 			productName = ChattingUtils;
 			productReference = EF7AF5572D922B9A0094303B /* ChattingUtils.framework */;
@@ -105,6 +111,9 @@
 			);
 			mainGroup = EF7AF54D2D922B9A0094303B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4B726C132DA1681A006108C4 /* XCRemoteSwiftPackageReference "swiftui-textView" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EF7AF5582D922B9A0094303B /* Products */;
 			projectDirPath = "";
@@ -352,6 +361,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4B726C132DA1681A006108C4 /* XCRemoteSwiftPackageReference "swiftui-textView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sanggab/swiftui-textView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4B726C142DA1681A006108C4 /* GabTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B726C132DA1681A006108C4 /* XCRemoteSwiftPackageReference "swiftui-textView" */;
+			productName = GabTextView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EF7AF54E2D922B9A0094303B /* Project object */;
 }

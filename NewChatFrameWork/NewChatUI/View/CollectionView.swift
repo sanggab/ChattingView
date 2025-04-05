@@ -14,7 +14,7 @@ import ChattingUtils
 
 public struct ChattingView<ContentView: View, NewChatListModel: Hashable>: UIViewRepresentable {
     
-    @ViewBuilder let viewBuilderClosure: (NewChatListModel) -> ContentView
+    @ViewBuilder let itemBuilderClosure: (NewChatCoordinator<ContentView, NewChatListModel>.ItemBuilderClosure) -> ContentView
     
     @Binding var keyboardOption: KeyboardOption
     let inputHeight: CGFloat
@@ -25,13 +25,13 @@ public struct ChattingView<ContentView: View, NewChatListModel: Hashable>: UIVie
     @State var previousKeyboardHeight: CGFloat = 0
     @Binding var chatList: [NewChatListModel]
     
-    public init(@ViewBuilder viewBuilderClosure: @escaping (NewChatListModel) -> ContentView,
+    public init(@ViewBuilder itemBuilderClosure: @escaping (NewChatCoordinator<ContentView, NewChatListModel>.ItemBuilderClosure) -> ContentView,
          keyboardOption: Binding<KeyboardOption>,
          updateState: Binding<NewChattingState>,
          inputHeight: CGFloat,
                 safeAreaInsetBottom: CGFloat,
                 chatList: Binding<[NewChatListModel]>) {
-        self.viewBuilderClosure = viewBuilderClosure
+        self.itemBuilderClosure = itemBuilderClosure
         self._updateState = updateState
         self._keyboardOption = keyboardOption
         self.inputHeight = inputHeight
@@ -62,7 +62,7 @@ public struct ChattingView<ContentView: View, NewChatListModel: Hashable>: UIVie
     }
     
     public func makeCoordinator() -> NewChatCoordinator<ContentView, NewChatListModel> {
-        return NewChatCoordinator(viewBuilderClosure: self.viewBuilderClosure)
+        return NewChatCoordinator(itemBuilder: self.itemBuilderClosure)
     }
 }
 

@@ -11,12 +11,14 @@ import Core
 
 public final class NewChatCoordinator<ContentView: View, NewChatListModel: Hashable>: NSObject, UICollectionViewDelegate {
     
-    var viewBuilderClosure: (NewChatListModel) -> ContentView
+    public typealias ItemBuilderClosure = (before: NewChatListModel?, current: NewChatListModel)
+    
+    var itemBuilder: (ItemBuilderClosure) -> ContentView
     
     var dataSource: UICollectionViewDiffableDataSource<ChatSection, NewChatListModel>!
     
-    public init(viewBuilderClosure: @escaping (NewChatListModel) -> ContentView) {
-        self.viewBuilderClosure = viewBuilderClosure
+    public init(itemBuilder: @escaping (ItemBuilderClosure) -> ContentView) {
+        self.itemBuilder = itemBuilder
     }
     
     public func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
@@ -43,18 +45,25 @@ public final class NewChatCoordinator<ContentView: View, NewChatListModel: Hasha
     
     public func setDataSource(view: UICollectionView) {
         print("상갑 logEvent \(#function)")
-        self.dataSource = UICollectionViewDiffableDataSource<ChatSection, NewChatListModel>(collectionView: view, cellProvider: { collectionView, indexPath, NewChatListModel in
+        self.dataSource = UICollectionViewDiffableDataSource<ChatSection, NewChatListModel>(collectionView: view, cellProvider: { [weak self] collectionView, indexPath, NewChatListModel in
+            guard let self else { return UICollectionViewCell() }
             print("상갑 logEvent \(#function) indexPath: \(indexPath)")
             let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "chatcell", for: indexPath)
             
+            let beforeListModel: NewChatListModel? = self.beforeListModel(in: indexPath)
+            
             cell.contentConfiguration = UIHostingConfiguration {
-                self.viewBuilderClosure(NewChatListModel)
+                self.itemBuilder((beforeListModel, NewChatListModel))
             }
             .minSize(width: 0, height: 0)
             .margins(.all, 0)
             
             return cell
         })
+    }
+    
+    private func beforeListModel(in index: IndexPath) -> NewChatListModel? {
+        return self.dataSource.itemIdentifier(for: index)
     }
     
     public func setData(item: [NewChatListModel]) {

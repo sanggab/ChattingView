@@ -37,14 +37,14 @@ struct ContentView: View {
                 }
                 .frame(height: 50)
                 
-                ChattingView(viewBuilderClosure: { (model: ChatModel) in
-                    switch model.chatType {
+                ChattingView(itemBuilderClosure: { (beforeItem: ChatModel?, currentItem: ChatModel) in
+                    switch currentItem.chatType {
                     case .text:
-                        Text(model.text)
+                        Text(currentItem.text)
                             .font(.headline)
                             .foregroundStyle(.black)
                     case .img:
-                        KFImage(URL(string: model.imgUrl ?? ""))
+                        KFImage(URL(string: currentItem.imgUrl ?? ""))
                             .resizable()
                             .frame(width: 300, height: 300)
                     case .delete:
