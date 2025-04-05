@@ -25,11 +25,11 @@ extension ChattingView {
 extension ChattingView {
     /// waiting State일 때 처리하는 기능 모음
     func waitingAction() {
-        if self.keyboardOption.state != .none {
-            DispatchQueue.main.async {
-                self.updateState = .keyboard
-            }
-        }
+//        if self.keyboardOption.state != .none {
+//            DispatchQueue.main.async {
+//                self.updateState = .keyboard
+//            }
+//        }
     }
 }
 // MARK: - textInput
